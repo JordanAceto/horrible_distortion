@@ -1,12 +1,12 @@
-%TF.GenerationSoftware,KiCad,Pcbnew,5.1.6-c6e7f7d~87~ubuntu18.04.1*%
-%TF.CreationDate,2020-07-29T17:48:24-04:00*%
-%TF.ProjectId,bit_crusher_jack_panel,6269745f-6372-4757-9368-65725f6a6163,rev?*%
-%TF.SameCoordinates,Original*%
-%TF.FileFunction,Legend,Top*%
-%TF.FilePolarity,Positive*%
+G04 #@! TF.GenerationSoftware,KiCad,Pcbnew,5.1.6-c6e7f7d~87~ubuntu18.04.1*
+G04 #@! TF.CreationDate,2020-07-30T09:46:51-04:00*
+G04 #@! TF.ProjectId,bit_crusher_jack_panel,6269745f-6372-4757-9368-65725f6a6163,rev?*
+G04 #@! TF.SameCoordinates,Original*
+G04 #@! TF.FileFunction,Legend,Top*
+G04 #@! TF.FilePolarity,Positive*
 %FSLAX46Y46*%
 G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
-G04 Created by KiCad (PCBNEW 5.1.6-c6e7f7d~87~ubuntu18.04.1) date 2020-07-29 17:48:24*
+G04 Created by KiCad (PCBNEW 5.1.6-c6e7f7d~87~ubuntu18.04.1) date 2020-07-30 09:46:51*
 %MOMM*%
 %LPD*%
 G01*
@@ -270,4 +270,10 @@ X87288571Y-39997142D01*
 X87574285Y-40140000D01*
 X87717142Y-40425714D01*
 X87717142Y-41997142D01*
+D11*
+X117540000Y-56515000D02*
+G75*
+G03*
+X117540000Y-56515000I-700000J0D01*
+G01*
 M02*
