@@ -12,6 +12,11 @@ Algorithm idea:
     This is a really simple way to control the sample rate, may need some clever scaling to sound good, experiment.
     The above is started in my local CubeIDE projects, seems promising. I have tested it with an stm32F405, and started porting it to an f334.
 
+## License:
+- ### hardware: CC by 4.0
+- ### software: MIT license
+- ### by: Jordan Aceto
+
 ## Status of the project:
 
 revision | schematic | pcb layout | firmware | built and tested | documentation
