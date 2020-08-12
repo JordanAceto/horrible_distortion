@@ -1,5 +1,7 @@
 stm32 based bitcrusher as a going away present for Ken
 
+![](./main_pcb/pics/pcb_rear.png?raw=true "pcb rear") 
+
 pcbs are layed out and ordered, waiting on arrival.
 parts are ordered, waiting on arrival.
 
