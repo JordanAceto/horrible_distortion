@@ -21,6 +21,11 @@ Algorithm idea:
 
 ## Status of the project:
 
-revision | schematic | pcb layout | firmware | built and tested | documentation
+revision | schematic | pcb layout | firmware | built and tested | notes
 ---------|-----------|------------|----------|------------------|---------------
-0        | &#9745;   | &#9745;    | &#9744;  | &#9744;          | &#9744; 
+0        | &#9745;   | &#9745;    | &#9745;  | &#9745;          | needs compander
+
+
+revision | schematic | pcb layout | firmware | built and tested | notes
+---------|-----------|------------|----------|------------------|---------------
+1        | &#9744;   | &#9744;    | &#9744;  | &#9744;          | 
