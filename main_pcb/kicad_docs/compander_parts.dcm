@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP NE570
+D Low cost dual gain control circuit in which either channel may be used as a dynamic range compressor or expandor.
+K compander compandor compressor expander expandor
+F https://www.onsemi.com/pub/Collateral/NE570-D.PDF
+$ENDCMP
+#
+#End Doc Library

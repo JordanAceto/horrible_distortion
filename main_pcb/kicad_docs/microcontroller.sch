@@ -3,10 +3,10 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 6
+Sheet 2 8
 Title "Bit Crusher Pedal"
-Date "2020-07-27"
-Rev "0"
+Date "2020-08-16"
+Rev "1"
 Comp ""
 Comment1 "creativecommons.org/licenses/by/4.0/"
 Comment2 "License: CC by 4.0"

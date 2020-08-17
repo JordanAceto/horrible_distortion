@@ -3,10 +3,10 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 6
+Sheet 8 8
 Title "Bit Crusher Pedal"
-Date "2020-07-27"
-Rev "0"
+Date "2020-08-16"
+Rev "1"
 Comp ""
 Comment1 "creativecommons.org/licenses/by/4.0/"
 Comment2 "License: CC by 4.0"
@@ -72,28 +72,17 @@ F 3 "" H 3050 4450 50  0001 C CNN
 	1    3050 4450
 	1    0    0    -1  
 $EndComp
-$Comp
-L Device:R R15
-U 1 1 5F1C75AB
-P 3100 2600
-F 0 "R15" H 3170 2646 50  0000 L CNN
-F 1 "selec" V 3100 2500 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3030 2600 50  0001 C CNN
-F 3 "~" H 3100 2600 50  0001 C CNN
-	1    3100 2600
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	3100 3150 3100 2750
 $Comp
 L power:+9V #PWR0137
 U 1 1 5F1C9A09
-P 3100 2450
-F 0 "#PWR0137" H 3100 2300 50  0001 C CNN
-F 1 "+9V" H 3115 2623 50  0000 C CNN
-F 2 "" H 3100 2450 50  0001 C CNN
-F 3 "" H 3100 2450 50  0001 C CNN
-	1    3100 2450
+P 3100 1850
+F 0 "#PWR0137" H 3100 1700 50  0001 C CNN
+F 1 "+9V" H 3115 2023 50  0000 C CNN
+F 2 "" H 3100 1850 50  0001 C CNN
+F 3 "" H 3100 1850 50  0001 C CNN
+	1    3100 1850
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -101,7 +90,7 @@ L Device:R R16
 U 1 1 5F1CB086
 P 3400 3050
 F 0 "R16" V 3500 3000 50  0000 L CNN
-F 1 "120k" V 3400 2950 50  0000 L CNN
+F 1 "100k" V 3400 2950 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3330 3050 50  0001 C CNN
 F 3 "~" H 3400 3050 50  0001 C CNN
 	1    3400 3050
@@ -112,7 +101,7 @@ L Device:R R18
 U 1 1 5F1D0609
 P 4400 2800
 F 0 "R18" V 4300 2750 50  0000 L CNN
-F 1 "82k" V 4400 2700 50  0000 L CNN
+F 1 "68k" V 4400 2700 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 4330 2800 50  0001 C CNN
 F 3 "~" H 4400 2800 50  0001 C CNN
 	1    4400 2800
@@ -161,7 +150,7 @@ L Device:R R17
 U 1 1 5F1D4EB0
 P 3400 4050
 F 0 "R17" V 3300 4000 50  0000 L CNN
-F 1 "82k" V 3400 3950 50  0000 L CNN
+F 1 "68k" V 3400 3950 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3330 4050 50  0001 C CNN
 F 3 "~" H 3400 4050 50  0001 C CNN
 	1    3400 4050
@@ -264,40 +253,14 @@ Wire Wire Line
 	7550 3350 7550 3250
 Wire Wire Line
 	7550 3250 7450 3250
-$Comp
-L Device:R R19
-U 1 1 5F1DEBED
-P 7800 2600
-F 0 "R19" H 7870 2646 50  0000 L CNN
-F 1 "selec" V 7800 2500 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 7730 2600 50  0001 C CNN
-F 3 "~" H 7800 2600 50  0001 C CNN
-	1    7800 2600
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	7450 3150 7800 3150
-Wire Wire Line
-	7800 3150 7800 2750
-$Comp
-L power:+9V #PWR0142
-U 1 1 5F1DEBF5
-P 7800 2450
-F 0 "#PWR0142" H 7800 2300 50  0001 C CNN
-F 1 "+9V" H 7815 2623 50  0000 C CNN
-F 2 "" H 7800 2450 50  0001 C CNN
-F 3 "" H 7800 2450 50  0001 C CNN
-	1    7800 2450
-	1    0    0    -1  
-$EndComp
-Text Notes 6600 2650 0    50   ~ 0
-The resistor going to +9 \nvolts must be selected to \ndevelop +5V accross an\noptional expression pedal.\n\n10k pedal -> 14k\n20k pedal -> 28k\n50k pedal -> 70k
 $Comp
 L Device:R R20
 U 1 1 5F1DEBFC
 P 8100 3050
 F 0 "R20" V 8200 3000 50  0000 L CNN
-F 1 "120k" V 8100 2950 50  0000 L CNN
+F 1 "100k" V 8100 2950 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 8030 3050 50  0001 C CNN
 F 3 "~" H 8100 3050 50  0001 C CNN
 	1    8100 3050
@@ -321,7 +284,7 @@ L Device:R R22
 U 1 1 5F1DEC09
 P 9100 2800
 F 0 "R22" V 9000 2750 50  0000 L CNN
-F 1 "82k" V 9100 2700 50  0000 L CNN
+F 1 "68k" V 9100 2700 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9030 2800 50  0001 C CNN
 F 3 "~" H 9100 2800 50  0001 C CNN
 	1    9100 2800
@@ -370,7 +333,7 @@ L Device:R R21
 U 1 1 5F1DEC24
 P 8100 4050
 F 0 "R21" V 8000 4000 50  0000 L CNN
-F 1 "82k" V 8100 3950 50  0000 L CNN
+F 1 "68k" V 8100 3950 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 8030 4050 50  0001 C CNN
 F 3 "~" H 8100 4050 50  0001 C CNN
 	1    8100 4050
@@ -472,8 +435,8 @@ F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/21733j.pdf" H 4450 3150 50 
 	1    4450 3150
 	1    0    0    1   
 $EndComp
-Text Notes 1900 2650 0    50   ~ 0
-The resistor going to +9 \nvolts must be selected to \ndevelop +5V accross an\noptional expression pedal.\n\n10k pedal -> 14k\n20k pedal -> 28k\n50k pedal -> 70k
+Text Notes 1200 2500 0    50   ~ 0
+Calibrate the trimpots so that +5 volts \nis developed across an expression \npedal connected to a TRS jack wired \nto the associated CV in port.\n\nDifferent brands of expression pedals\nhave different value pots, the trimmer \nallows for the bit-crusher to be calibrated\nfor various common expression pedals.
 Wire Wire Line
 	3250 3050 2750 3050
 Wire Wire Line
@@ -504,4 +467,87 @@ F 3 "~" H 2550 3150 50  0001 C CNN
 	1    2550 3150
 	-1   0    0    -1  
 $EndComp
+$Comp
+L Device:R R15
+U 1 1 5F1C75AB
+P 3100 2600
+F 0 "R15" H 3200 2600 50  0000 L CNN
+F 1 "10k" V 3100 2500 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3030 2600 50  0001 C CNN
+F 3 "~" H 3100 2600 50  0001 C CNN
+	1    3100 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_POT RV4
+U 1 1 5F39ECFC
+P 3100 2200
+F 0 "RV4" H 3050 2200 50  0000 R CNN
+F 1 "100k" V 3100 2300 50  0000 R CNN
+F 2 "Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical" H 3100 2200 50  0001 C CNN
+F 3 "~" H 3100 2200 50  0001 C CNN
+	1    3100 2200
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	3350 2200 3250 2200
+Wire Wire Line
+	3100 1850 3100 1950
+Wire Wire Line
+	3100 2350 3100 2450
+Wire Wire Line
+	3350 2200 3350 1950
+Wire Wire Line
+	3350 1950 3100 1950
+Connection ~ 3100 1950
+Wire Wire Line
+	3100 1950 3100 2050
+Wire Wire Line
+	7800 3150 7800 2750
+$Comp
+L power:+9V #PWR05
+U 1 1 5F3B36C9
+P 7800 1850
+F 0 "#PWR05" H 7800 1700 50  0001 C CNN
+F 1 "+9V" H 7815 2023 50  0000 C CNN
+F 2 "" H 7800 1850 50  0001 C CNN
+F 3 "" H 7800 1850 50  0001 C CNN
+	1    7800 1850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R19
+U 1 1 5F3B36CF
+P 7800 2600
+F 0 "R19" H 7900 2600 50  0000 L CNN
+F 1 "10k" V 7800 2500 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 7730 2600 50  0001 C CNN
+F 3 "~" H 7800 2600 50  0001 C CNN
+	1    7800 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_POT RV5
+U 1 1 5F3B36D5
+P 7800 2200
+F 0 "RV5" H 7750 2200 50  0000 R CNN
+F 1 "100k" V 7800 2300 50  0000 R CNN
+F 2 "Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical" H 7800 2200 50  0001 C CNN
+F 3 "~" H 7800 2200 50  0001 C CNN
+	1    7800 2200
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	8050 2200 7950 2200
+Wire Wire Line
+	7800 1850 7800 1950
+Wire Wire Line
+	7800 2350 7800 2450
+Wire Wire Line
+	8050 2200 8050 1950
+Wire Wire Line
+	8050 1950 7800 1950
+Connection ~ 7800 1950
+Wire Wire Line
+	7800 1950 7800 2050
 $EndSCHEMATC

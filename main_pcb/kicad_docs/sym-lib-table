@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name compander_parts)(type Legacy)(uri ${KIPRJMOD}/compander_parts.lib)(options "")(descr ""))
+)

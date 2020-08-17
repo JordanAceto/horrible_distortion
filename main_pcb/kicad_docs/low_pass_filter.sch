@@ -3,10 +3,10 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 7
+Sheet 5 8
 Title "Bit Crusher Pedal"
-Date "2020-07-27"
-Rev "0"
+Date "2020-08-16"
+Rev "1"
 Comp ""
 Comment1 "creativecommons.org/licenses/by/4.0/"
 Comment2 "License: CC by 4.0"
@@ -47,8 +47,8 @@ Wire Wire Line
 	4550 3900 4450 3900
 Wire Wire Line
 	4950 3900 5050 3900
-Text HLabel 7600 4000 2    50   Output ~ 0
-buffered_wet_audio
+Text HLabel 6800 4000 2    50   Output ~ 0
+low_passed_wet_signal
 $Comp
 L Device:C C?
 U 1 1 5F2243B2
@@ -125,31 +125,6 @@ F 3 "" H 5450 4300 50  0001 C CNN
 	1    5450 4300
 	1    0    0    -1  
 $EndComp
-$Comp
-L Device:CP1 C8
-U 1 1 5F233DF9
-P 7250 4000
-F 0 "C8" V 7502 4000 50  0000 C CNN
-F 1 "10uF" V 7411 4000 50  0000 C CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 7250 4000 50  0001 C CNN
-F 3 "~" H 7250 4000 50  0001 C CNN
-	1    7250 4000
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 5F234BA2
-P 6950 4000
-AR Path="/5F1223E3/5F234BA2" Ref="R?"  Part="1" 
-AR Path="/5F122414/5F234BA2" Ref="R?"  Part="1" 
-AR Path="/5F122464/5F234BA2" Ref="R11"  Part="1" 
-F 0 "R11" V 6850 3950 50  0000 L CNN
-F 1 "560" V 6950 3900 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 6880 4000 50  0001 C CNN
-F 3 "~" H 6950 4000 50  0001 C CNN
-	1    6950 4000
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	6800 4000 6700 4000
 Wire Wire Line
@@ -158,40 +133,6 @@ Wire Wire Line
 	5900 4450 6700 4450
 Wire Wire Line
 	6700 4450 6700 4000
-Text Notes 3650 2950 0    157  ~ 0
-20kHz Low-pass filter/output buffer
-$Comp
-L Device:R R?
-U 1 1 5F2B311E
-P 7500 4250
-AR Path="/5F1223E3/5F2B311E" Ref="R?"  Part="1" 
-AR Path="/5F122414/5F2B311E" Ref="R?"  Part="1" 
-AR Path="/5F122464/5F2B311E" Ref="R12"  Part="1" 
-F 0 "R12" H 7300 4250 50  0000 L CNN
-F 1 "1M" V 7500 4200 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 7430 4250 50  0001 C CNN
-F 3 "~" H 7500 4250 50  0001 C CNN
-	1    7500 4250
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5F2B3124
-P 7500 4400
-AR Path="/5F122414/5F2B3124" Ref="#PWR?"  Part="1" 
-AR Path="/5F122464/5F2B3124" Ref="#PWR0117"  Part="1" 
-F 0 "#PWR0117" H 7500 4150 50  0001 C CNN
-F 1 "GND" H 7505 4227 50  0000 C CNN
-F 2 "" H 7500 4400 50  0001 C CNN
-F 3 "" H 7500 4400 50  0001 C CNN
-	1    7500 4400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7600 4000 7500 4000
-Wire Wire Line
-	7500 4100 7500 4000
-Connection ~ 7500 4000
-Wire Wire Line
-	7500 4000 7400 4000
+Text Notes 4250 3000 0    157  ~ 0
+20kHz Low-pass filter
 $EndSCHEMATC
