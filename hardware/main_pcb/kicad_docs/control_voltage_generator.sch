@@ -481,27 +481,18 @@ $EndComp
 $Comp
 L Device:R_POT RV4
 U 1 1 5F39ECFC
-P 3100 2200
-F 0 "RV4" H 3050 2200 50  0000 R CNN
-F 1 "100k" V 3100 2300 50  0000 R CNN
-F 2 "Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical" H 3100 2200 50  0001 C CNN
-F 3 "~" H 3100 2200 50  0001 C CNN
-	1    3100 2200
+P 3100 2100
+F 0 "RV4" H 3050 2100 50  0000 R CNN
+F 1 "100k" V 3100 2200 50  0000 R CNN
+F 2 "Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical" H 3100 2100 50  0001 C CNN
+F 3 "~" H 3100 2100 50  0001 C CNN
+	1    3100 2100
 	1    0    0    1   
 $EndComp
 Wire Wire Line
-	3350 2200 3250 2200
+	3350 2100 3250 2100
 Wire Wire Line
-	3100 1850 3100 1950
-Wire Wire Line
-	3100 2350 3100 2450
-Wire Wire Line
-	3350 2200 3350 1950
-Wire Wire Line
-	3350 1950 3100 1950
-Connection ~ 3100 1950
-Wire Wire Line
-	3100 1950 3100 2050
+	3100 2250 3100 2350
 Wire Wire Line
 	7800 3150 7800 2750
 $Comp
@@ -526,28 +517,37 @@ F 3 "~" H 7800 2600 50  0001 C CNN
 	1    7800 2600
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	8050 2100 7950 2100
+Wire Wire Line
+	7800 2250 7800 2350
+Wire Wire Line
+	3100 1850 3100 1950
+Wire Wire Line
+	3100 2350 3350 2350
+Wire Wire Line
+	3350 2350 3350 2100
+Connection ~ 3100 2350
+Wire Wire Line
+	3100 2350 3100 2450
 $Comp
 L Device:R_POT RV5
 U 1 1 5F3B36D5
-P 7800 2200
-F 0 "RV5" H 7750 2200 50  0000 R CNN
-F 1 "100k" V 7800 2300 50  0000 R CNN
-F 2 "Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical" H 7800 2200 50  0001 C CNN
-F 3 "~" H 7800 2200 50  0001 C CNN
-	1    7800 2200
+P 7800 2100
+F 0 "RV5" H 7750 2100 50  0000 R CNN
+F 1 "100k" V 7800 2200 50  0000 R CNN
+F 2 "Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical" H 7800 2100 50  0001 C CNN
+F 3 "~" H 7800 2100 50  0001 C CNN
+	1    7800 2100
 	1    0    0    1   
 $EndComp
 Wire Wire Line
-	8050 2200 7950 2200
-Wire Wire Line
 	7800 1850 7800 1950
 Wire Wire Line
+	7800 2350 8050 2350
+Wire Wire Line
+	8050 2350 8050 2100
+Connection ~ 7800 2350
+Wire Wire Line
 	7800 2350 7800 2450
-Wire Wire Line
-	8050 2200 8050 1950
-Wire Wire Line
-	8050 1950 7800 1950
-Connection ~ 7800 1950
-Wire Wire Line
-	7800 1950 7800 2050
 $EndSCHEMATC
