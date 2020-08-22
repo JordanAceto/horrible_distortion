@@ -71,24 +71,6 @@ typedef struct SysTick_Timeout_Timer_Type
 
 /*------------------------------------------------------------------------------
 Function Name:
-    SysTick_Init
-
-Function Description:
-    Perform SysTick initialization 
-
-Parameters:
-    None
-
-Returns:
-    None
-
-Assumptions/Limitations:
-    None
-------------------------------------------------------------------------------*/
-void SysTick_Init(void);
-
-/*------------------------------------------------------------------------------
-Function Name:
     SysTick_Delay_mSec
 
 Function Description:
