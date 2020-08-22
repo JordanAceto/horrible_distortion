@@ -153,9 +153,6 @@ void GPIO_Init(void);
 
 void SystemInit(void)
 {
-    // set two flash wait states for 48MHz < SYSCLK <= 72MHz
-    FLASH->ACR |= FLASH_ACR_LATENCY_2;
-
     RCC_Init();
     SysTick_Init();
     GPIO_Init();
@@ -197,6 +194,9 @@ void RCC_Init(void)
     RCC->CFGR |= RCC_CFGR_PPRE1_DIV2; // APB1 set to 36MHz
 
     RCC->CFGR |= RCC_CFGR_PPRE2_DIV1; // APB2 set to 72MHz
+
+    // set two flash wait states for 48MHz < SYSCLK <= 72MHz
+    FLASH->ACR |= FLASH_ACR_LATENCY_2;
 
     // select the PLL as the system clock
     RCC->CFGR |= RCC_CFGR_SW_PLL;
