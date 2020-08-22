@@ -145,6 +145,24 @@ Assumptions/Limitations:
 ------------------------------------------------------------------------------*/
 void GPIO_Init(void);
 
+/*------------------------------------------------------------------------------
+Function Name:
+    ADC1_Init
+
+Function Description:
+    Perform initialization of ADC1
+
+Parameters:
+    None
+
+Returns:
+    None
+
+Assumptions/Limitations:
+    Assumed that this will be called before branching to the main application.
+------------------------------------------------------------------------------*/
+void ADC1_Init(void);
+
 /*
 --|----------------------------------------------------------------------------|
 --| PUBLIC FUNCTION DEFINITIONS
@@ -156,6 +174,7 @@ void SystemInit(void)
     RCC_Init();
     SysTick_Init();
     GPIO_Init();
+    ADC1_Init();
 }
 
 /*
@@ -238,4 +257,53 @@ void GPIO_Init(void)
 
     // turn the LEDs off
     GPIOA->BRR |= GPIO_BRR_BR_8 | GPIO_BRR_BR_9;
+}
+
+void ADC1_Init(void)
+{
+    // enable ADC 1 and 2 (you can only enable them both at once)
+    RCC->AHBENR |= RCC_AHBENR_ADC12EN;
+
+    // PLL clock divided by 2?
+    RCC->CFGR2 |= RCC_CFGR2_ADCPRE12_4 | RCC_CFGR2_ADCPRE12_0;
+
+    // enable GPIO port A
+    RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
+
+    // set PA0 to analog mode, PA0 is connected to the resolution_CV_in node
+    GPIOA->MODER |= GPIO_MODER_MODER0_0 | GPIO_MODER_MODER0_1;
+
+    // set PA1 to analog mode, PA1 is connected to the sample_rate_CV_in node
+    GPIOA->MODER |= GPIO_MODER_MODER1_0 | GPIO_MODER_MODER1_1;
+
+    // enable the ADC voltage regulator
+    ADC1->CR |= ADC_CR_ADVREGEN_0;
+
+    // first conversion is channel 1, resolution
+    ADC1->SQR1 |= ADC_SQR1_SQ1_0;
+
+    // second conversion is channel 2, sample rate
+    ADC1->SQR1 |= ADC_SQR1_SQ2_1;
+
+    // regular channel sequence length = 2
+    ADC1->SQR1 |= ADC_SQR1_L_0;
+
+    // set calibration to single ended
+    ADC1->CR &= ~ADC_CR_ADCALDIF;
+
+    // start the calibration
+    ADC1->CR |= ADC_CR_ADCAL;
+
+    while (ADC1->CR & ADC_CR_ADCAL)
+    {
+        // wait for the calibration to complete
+    }
+
+    // enable ADC1
+    ADC1->CR |= ADC_CR_ADEN;
+
+    while (!(ADC1->ISR & ADC_ISR_ADRDY))
+    {
+        // wait until the ADC is ready
+    }
 }
