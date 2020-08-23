@@ -110,7 +110,7 @@ void SysTick_Delay_mSec(uint32_t mSec)
 {
     const uint32_t start_time = SysTick_Get_mSec();
 
-    while ((SysTick_Get_mSec() - start_time) <= mSec)
+    while ((SysTick_Get_mSec() - start_time) < mSec)
     {
         // wait
     }
