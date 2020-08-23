@@ -83,10 +83,6 @@
 
 void TIM6_Init(void)
 {
-
-    NVIC_SetPriority(TIM6_DAC1_IRQn, 0x03);
-    NVIC_EnableIRQ(TIM6_DAC1_IRQn);
-
     // enable clock control for timer 6
     RCC->APB1ENR |= RCC_APB1ENR_TIM6EN;
 
