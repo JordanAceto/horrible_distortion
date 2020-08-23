@@ -71,6 +71,25 @@ typedef struct SysTick_Timeout_Timer_Type
 
 /*------------------------------------------------------------------------------
 Function Name:
+    SysTick_Init
+
+Function Description:
+    Perform initialization of the SysTick timer such that the SysTick counts
+    in milliseconds.
+
+Parameters:
+    None
+
+Returns:
+    None
+
+Assumptions/Limitations:
+    Assumed that this will be called before using the SysTick timer.
+------------------------------------------------------------------------------*/
+void SysTick_Init(void);
+
+/*------------------------------------------------------------------------------
+Function Name:
     SysTick_Delay_mSec
 
 Function Description:

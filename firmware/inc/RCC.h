@@ -1,17 +1,18 @@
 /*
 --|----------------------------------------------------------------------------|
 --| FILE DESCRIPTION:
---|   main.h provides an interface for the main application entry point.
---|   
+--|   RCC.h provides the interface for initializing the Reset and Clock
+--|   Control registers.
+--|  
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
---|   None
+--|   STM32F334xx Reference Manual, page 104
 --|
 --|----------------------------------------------------------------------------|
 */
 
-#ifndef MAIN_H_INCLUDED
-#define MAIN_H_INCLUDED
+#ifndef RCC_H_INCLUDED
+#define RCC_H_INCLUDED
 
 /*
 --|----------------------------------------------------------------------------|
@@ -19,9 +20,7 @@
 --|----------------------------------------------------------------------------|
 */
 
-#include "global_data.h"
-#include "stm32f334x8.h"
-#include "SysTick.h"
+/* None */
 
 /*
 --|----------------------------------------------------------------------------|
@@ -63,22 +62,25 @@
 
 /*------------------------------------------------------------------------------
 Function Name:
-    main
+    RCC_Init
 
 Function Description:
-    The main application entry point. main enters an infinite loop and is not
-    expected to return. 
+    Perform initialization of the Reset and Clock Control registers. Sets the 
+    system clock to use the external 8MHz crystal oscillator, multiplied by
+    the PLL to reach a final clock frequency of 72MHz.
+
+    Since the final clock frequency is greater than 48MHz, two wait states
+    are added to the FLASH controller.
 
 Parameters:
-    None.
+    None
 
 Returns:
-    int (not expected to return)
+    None
 
 Assumptions/Limitations:
-    Assumes that the SystemInit function has been called prior to branching to 
-    main, and that main will enter an infinite loop and not return.
+    Assumed that this will be called before branching to the main application.
 ------------------------------------------------------------------------------*/
-int main(void);
+void RCC_Init(void);
 
 #endif

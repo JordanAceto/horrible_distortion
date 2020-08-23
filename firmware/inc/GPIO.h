@@ -1,17 +1,25 @@
 /*
 --|----------------------------------------------------------------------------|
 --| FILE DESCRIPTION:
---|   main.h provides an interface for the main application entry point.
+--|   GPIO.h provides the interface for initializing the GPIO pins.
 --|   
+--|   PA0 is an analog input mapped to the bit-resolution CV signal.
+--|   PA1 is an analog input mapped to the sample-rate CV signal.
+--|   PA4 is the DAC output which outputs the processed audio signal.
+--|   PA5 is an analog input mapped to the audio input signal.
+--|   PA8 is a discrete output mapped to the GREEN LED.
+--|   PA9 is a discrete output mapped to the RED LED.
+--| 
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
---|   None
+--|   STM32F334xx Reference Manual, page 104 (RCC)
+--|   STM32F334xx Reference Manual, page 139 (GPIO)
 --|
 --|----------------------------------------------------------------------------|
 */
 
-#ifndef MAIN_H_INCLUDED
-#define MAIN_H_INCLUDED
+#ifndef GPIO_H_INCLUDED
+#define GPIO_H_INCLUDED
 
 /*
 --|----------------------------------------------------------------------------|
@@ -19,9 +27,7 @@
 --|----------------------------------------------------------------------------|
 */
 
-#include "global_data.h"
-#include "stm32f334x8.h"
-#include "SysTick.h"
+/* None */
 
 /*
 --|----------------------------------------------------------------------------|
@@ -63,22 +69,22 @@
 
 /*------------------------------------------------------------------------------
 Function Name:
-    main
+    GPIO_Init
 
 Function Description:
-    The main application entry point. main enters an infinite loop and is not
-    expected to return. 
+    Perform initialization of the GPIO pins. Sets up the control signal ADC 
+    inputs, the audio ADC input, the audio DAC output, and the red and green 
+    LEDs as outputs.
 
 Parameters:
-    None.
+    None
 
 Returns:
-    int (not expected to return)
+    None
 
 Assumptions/Limitations:
-    Assumes that the SystemInit function has been called prior to branching to 
-    main, and that main will enter an infinite loop and not return.
+    Assumed that this will be called before using any of the GPIO pins.
 ------------------------------------------------------------------------------*/
-int main(void);
+void GPIO_Init(void);
 
 #endif

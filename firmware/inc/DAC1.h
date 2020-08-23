@@ -1,17 +1,20 @@
 /*
 --|----------------------------------------------------------------------------|
 --| FILE DESCRIPTION:
---|   main.h provides an interface for the main application entry point.
+--|   DAC1.h provides the interface for initializing DAC1.
 --|   
+--|   DAC1 outputs the procesed audio signal on channel 1.
+--|  
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
---|   None
+--|   STM32F334xx Reference Manual, page 104 (RCC)
+--|   STM32F334xx Reference Manual, page 317 (DAC)
 --|
 --|----------------------------------------------------------------------------|
 */
 
-#ifndef MAIN_H_INCLUDED
-#define MAIN_H_INCLUDED
+#ifndef DAC1_H_INCLUDED
+#define DAC1_H_INCLUDED
 
 /*
 --|----------------------------------------------------------------------------|
@@ -19,9 +22,7 @@
 --|----------------------------------------------------------------------------|
 */
 
-#include "global_data.h"
-#include "stm32f334x8.h"
-#include "SysTick.h"
+/* None */
 
 /*
 --|----------------------------------------------------------------------------|
@@ -63,22 +64,21 @@
 
 /*------------------------------------------------------------------------------
 Function Name:
-    main
+    DAC1_Init
 
 Function Description:
-    The main application entry point. main enters an infinite loop and is not
-    expected to return. 
+    Perform initialization of the DAC. DAC1 channel 1 outputs the processed
+    audio signal.
 
 Parameters:
-    None.
+    None
 
 Returns:
-    int (not expected to return)
+    None
 
 Assumptions/Limitations:
-    Assumes that the SystemInit function has been called prior to branching to 
-    main, and that main will enter an infinite loop and not return.
+    Assumed that this will be called before using DAC1.
 ------------------------------------------------------------------------------*/
-int main(void);
+void DAC1_Init(void);
 
 #endif

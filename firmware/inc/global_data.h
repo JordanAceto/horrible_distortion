@@ -1,8 +1,9 @@
 /*
 --|----------------------------------------------------------------------------|
 --| FILE DESCRIPTION:
---|   main.h provides an interface for the main application entry point.
+--|   global_data.h provides access to the global data used by the system.
 --|   
+--|  
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
 --|   None
@@ -10,8 +11,8 @@
 --|----------------------------------------------------------------------------|
 */
 
-#ifndef MAIN_H_INCLUDED
-#define MAIN_H_INCLUDED
+#ifndef GLOBAL_DATA_H_INCLUDED
+#define GLOBAL_DATA_H_INCLUDED
 
 /*
 --|----------------------------------------------------------------------------|
@@ -19,9 +20,7 @@
 --|----------------------------------------------------------------------------|
 */
 
-#include "global_data.h"
-#include "stm32f334x8.h"
-#include "SysTick.h"
+#include <stdint.h>
 
 /*
 --|----------------------------------------------------------------------------|
@@ -29,7 +28,12 @@
 --|----------------------------------------------------------------------------|
 */
 
-/* None */
+/*
+--| NAME: UI12_MAX
+--| DESCRIPTION: max value of unsigned 12 bit signal
+--| TYPE: uint
+*/
+#define UI12_MAX (0x0FFFu)
 
 /*
 --|----------------------------------------------------------------------------|
@@ -37,7 +41,16 @@
 --|----------------------------------------------------------------------------|
 */
 
-/* None */
+/*
+--| NAME: Control_Input_enum
+--| DESCRIPTION: named enumeration of control input signals
+*/
+typedef enum Control_Input_Enumeration
+{
+	CONTROL_INPUT_BIT_DEPTH = 0,
+	CONTROL_INPUT_SAMPLE_RATE,
+	NUM_CONTROL_INPUTS
+} Control_Input_enum;
 
 /*
 --|----------------------------------------------------------------------------|
@@ -53,7 +66,19 @@
 --|----------------------------------------------------------------------------|
 */
 
-/* None */
+/*
+--| NAME: audio_signal_reading
+--| DESCRIPTION: the digitized audio signal reading
+--| TYPE: uint32_t
+*/
+uint32_t audio_signal_reading;
+
+/*
+--| NAME: control_reading
+--| DESCRIPTION: the digitized control signal readings
+--| TYPE: uint32_t
+*/
+uint32_t control_reading[NUM_CONTROL_INPUTS];
 
 /*
 --|----------------------------------------------------------------------------|
@@ -61,24 +86,6 @@
 --|----------------------------------------------------------------------------|
 */
 
-/*------------------------------------------------------------------------------
-Function Name:
-    main
-
-Function Description:
-    The main application entry point. main enters an infinite loop and is not
-    expected to return. 
-
-Parameters:
-    None.
-
-Returns:
-    int (not expected to return)
-
-Assumptions/Limitations:
-    Assumes that the SystemInit function has been called prior to branching to 
-    main, and that main will enter an infinite loop and not return.
-------------------------------------------------------------------------------*/
-int main(void);
+/* None */
 
 #endif

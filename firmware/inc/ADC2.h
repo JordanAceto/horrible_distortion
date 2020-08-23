@@ -1,17 +1,20 @@
 /*
 --|----------------------------------------------------------------------------|
 --| FILE DESCRIPTION:
---|   main.h provides an interface for the main application entry point.
+--|   ADC2.h provides the interface for initializing ADC2.
+--|   
+--|   ADC2 channel 2 reads the audio input signal on pin PA5.
 --|   
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
---|   None
+--|   STM32F334xx Reference Manual, page 104 (RCC)
+--|   STM32F334xx Reference Manual, page 211 (ADC)
 --|
 --|----------------------------------------------------------------------------|
 */
 
-#ifndef MAIN_H_INCLUDED
-#define MAIN_H_INCLUDED
+#ifndef ADC2_H_INCLUDED
+#define ADC2_H_INCLUDED
 
 /*
 --|----------------------------------------------------------------------------|
@@ -19,9 +22,7 @@
 --|----------------------------------------------------------------------------|
 */
 
-#include "global_data.h"
-#include "stm32f334x8.h"
-#include "SysTick.h"
+/* None */
 
 /*
 --|----------------------------------------------------------------------------|
@@ -63,22 +64,20 @@
 
 /*------------------------------------------------------------------------------
 Function Name:
-    main
+    ADC2_Init
 
 Function Description:
-    The main application entry point. main enters an infinite loop and is not
-    expected to return. 
+    Perform initialization of ADC2.
 
 Parameters:
-    None.
+    None
 
 Returns:
-    int (not expected to return)
+    None
 
 Assumptions/Limitations:
-    Assumes that the SystemInit function has been called prior to branching to 
-    main, and that main will enter an infinite loop and not return.
+    Assumed that this will be called before using ADC2.
 ------------------------------------------------------------------------------*/
-int main(void);
+void ADC2_Init(void);
 
 #endif

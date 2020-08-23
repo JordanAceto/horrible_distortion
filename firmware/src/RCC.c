@@ -1,11 +1,11 @@
 /*
 --|----------------------------------------------------------------------------|
 --| FILE DESCRIPTION:
---|   main.c provides the main application entry point implementation.
---|   
+--|   RCC.c provides the implementation for initializing RCC.
+--|  
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
---|   None
+--|   STM32F334xx Reference Manual, page 104
 --|
 --|----------------------------------------------------------------------------|
 */
@@ -16,7 +16,7 @@
 --|----------------------------------------------------------------------------|
 */
 
-#include "main.h"
+#include "stm32f3xx.h"
 
 /*
 --|----------------------------------------------------------------------------|
@@ -52,6 +52,14 @@
 
 /*
 --|----------------------------------------------------------------------------|
+--| PUBLIC VARIABLES
+--|----------------------------------------------------------------------------|
+*/
+
+/* None */
+
+/*
+--|----------------------------------------------------------------------------|
 --| PRIVATE HELPER FUNCTION PROTOTYPES
 --|----------------------------------------------------------------------------|
 */
@@ -64,39 +72,46 @@
 --|----------------------------------------------------------------------------|
 */
 
-int main(void)
+void RCC_Init(void)
 {
+    // enable the external high speed clock
+    RCC->CR |= RCC_CR_HSEON;
 
-    while(1)
+    while (!(RCC->CR & RCC_CR_HSERDY))
     {
+        // wait for the external clock to be ready
+    }
 
-        // start a conversion of the audio signal
-        ADC2->CR |= ADC_CR_ADSTART;
+    // set the PLL multiplier to multiply the input clock by 9
+    RCC->CFGR |= RCC_CFGR_PLLMUL_0 | RCC_CFGR_PLLMUL_1 | RCC_CFGR_PLLMUL_2;
 
-        while (!(ADC2->ISR & ADC_ISR_EOC))
-        {
-            // wait for conversion to complete
-        }
+    // set the PLL clock source to HSE
+    RCC->CFGR |= RCC_CFGR_PLLSRC;
 
-        // save the digitized audio sample in the global variable
-        audio_signal_reading = ADC2->DR;
+    // turn on the PLL
+    RCC->CR |= RCC_CR_PLLON;
 
-        while (!(ADC2->ISR & ADC_ISR_EOS))
-        {
-            // wait for the end of the regular sequence to complete
-        }
+    while (!(RCC->CR & RCC_CR_PLLRDY))
+    {
+        // wait for the PLL to lock
+    }
 
-        // clear the EOS flag
-        ADC2->ISR |= ADC_ISR_EOS;
+    // set the clock dividers
+    RCC->CFGR |= RCC_CFGR_HPRE_DIV1;  // AHB set to 72MHz
 
-        // write the audio signal straight to the DAC as a test
-        DAC1->DHR12R1 = audio_signal_reading;
+    RCC->CFGR |= RCC_CFGR_PPRE1_DIV2; // APB1 set to 36MHz
 
-        // trigger the DAC to update the output
-        DAC1->SWTRIGR |= DAC_SWTRIGR_SWTRIG1;
+    RCC->CFGR |= RCC_CFGR_PPRE2_DIV1; // APB2 set to 72MHz
 
-        // short delay
-        SysTick_Delay_mSec(1);
+    // set two flash wait states for 48MHz < SYSCLK <= 72MHz
+    FLASH->ACR |= FLASH_ACR_LATENCY_2;
+
+    // select the PLL as the system clock
+    RCC->CFGR |= RCC_CFGR_SW_PLL;
+
+    while (!(RCC->CFGR & RCC_CFGR_SWS_PLL))
+    {
+        // wait for the PLL to be ready
     }
 }
 

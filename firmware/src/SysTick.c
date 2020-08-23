@@ -88,6 +88,24 @@ void SysTick_Handler(void);
 --|----------------------------------------------------------------------------|
 */
 
+void SysTick_Init(void)
+{
+    // set the load register such that the systick timer rolls over every 1mSec
+    SysTick->LOAD = (SystemCoreClock / 1000u) - 1u; 
+    
+    // clear the current value
+    SysTick->VAL = 0u;
+    
+    // set the clocksource to undivided processor clock (AHB)
+    SysTick->CTRL |= SysTick_CTRL_CLKSOURCE_Msk;
+
+    // enable exception requests so that the SysTick_Handler will be called at 1kHz
+    SysTick->CTRL |= SysTick_CTRL_TICKINT_Msk;
+
+    // enable the SysTick timer
+    SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk;
+}
+
 void SysTick_Delay_mSec(uint32_t mSec)
 {
     const uint32_t start_time = SysTick_Get_mSec();

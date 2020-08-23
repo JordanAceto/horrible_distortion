@@ -1,11 +1,14 @@
 /*
 --|----------------------------------------------------------------------------|
 --| FILE DESCRIPTION:
---|   main.c provides the main application entry point implementation.
+--|   DAC1.c provides the implementation for initializing DAC1.
 --|   
+--|   DAC1 outputs the procesed audio signal on channel 1.
+--|  
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
---|   None
+--|   STM32F334xx Reference Manual, page 104 (RCC)
+--|   STM32F334xx Reference Manual, page 317 (DAC)
 --|
 --|----------------------------------------------------------------------------|
 */
@@ -16,7 +19,7 @@
 --|----------------------------------------------------------------------------|
 */
 
-#include "main.h"
+#include "stm32f3xx.h"
 
 /*
 --|----------------------------------------------------------------------------|
@@ -52,6 +55,14 @@
 
 /*
 --|----------------------------------------------------------------------------|
+--| PUBLIC VARIABLES
+--|----------------------------------------------------------------------------|
+*/
+
+/* None */
+
+/*
+--|----------------------------------------------------------------------------|
 --| PRIVATE HELPER FUNCTION PROTOTYPES
 --|----------------------------------------------------------------------------|
 */
@@ -64,40 +75,19 @@
 --|----------------------------------------------------------------------------|
 */
 
-int main(void)
+void DAC1_Init(void)
 {
+    // enable DAC1 clock control
+    RCC->APB1ENR |= RCC_APB1ENR_DAC1EN;
 
-    while(1)
-    {
+    // enable triggers for DAC1
+    DAC1->CR |= DAC_CR_TEN1;
 
-        // start a conversion of the audio signal
-        ADC2->CR |= ADC_CR_ADSTART;
+    // set DAC1 to use software triggers
+    DAC1->CR |= DAC_CR_TSEL1_0 | DAC_CR_TSEL1_1 | DAC_CR_TSEL1_2;
 
-        while (!(ADC2->ISR & ADC_ISR_EOC))
-        {
-            // wait for conversion to complete
-        }
-
-        // save the digitized audio sample in the global variable
-        audio_signal_reading = ADC2->DR;
-
-        while (!(ADC2->ISR & ADC_ISR_EOS))
-        {
-            // wait for the end of the regular sequence to complete
-        }
-
-        // clear the EOS flag
-        ADC2->ISR |= ADC_ISR_EOS;
-
-        // write the audio signal straight to the DAC as a test
-        DAC1->DHR12R1 = audio_signal_reading;
-
-        // trigger the DAC to update the output
-        DAC1->SWTRIGR |= DAC_SWTRIGR_SWTRIG1;
-
-        // short delay
-        SysTick_Delay_mSec(1);
-    }
+    // enable DAC1
+    DAC1->CR |= DAC_CR_EN1;
 }
 
 /*

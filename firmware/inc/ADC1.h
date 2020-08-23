@@ -1,17 +1,22 @@
 /*
 --|----------------------------------------------------------------------------|
 --| FILE DESCRIPTION:
---|   main.h provides an interface for the main application entry point.
+--|   ADC1.h provides the interface for initializing ADC1.
 --|   
+--|   ADC1 reads the control signals for bit-depth and sample rate.
+--|   The bit-depth control signal is read with ADC1 channel 1, on pin PA0.
+--|   The sample-rate control signal is read with ADC1 channel 2, on pin PA1.
+--|
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
---|   None
+--|   STM32F334xx Reference Manual, page 104 (RCC)
+--|   STM32F334xx Reference Manual, page 211 (ADC)
 --|
 --|----------------------------------------------------------------------------|
 */
 
-#ifndef MAIN_H_INCLUDED
-#define MAIN_H_INCLUDED
+#ifndef ADC1_H_INCLUDED
+#define ADC1_H_INCLUDED
 
 /*
 --|----------------------------------------------------------------------------|
@@ -19,9 +24,7 @@
 --|----------------------------------------------------------------------------|
 */
 
-#include "global_data.h"
-#include "stm32f334x8.h"
-#include "SysTick.h"
+/* None */
 
 /*
 --|----------------------------------------------------------------------------|
@@ -63,22 +66,20 @@
 
 /*------------------------------------------------------------------------------
 Function Name:
-    main
+    ADC1_Init
 
 Function Description:
-    The main application entry point. main enters an infinite loop and is not
-    expected to return. 
+    Perform initialization of ADC1.
 
 Parameters:
-    None.
+    None
 
 Returns:
-    int (not expected to return)
+    None
 
 Assumptions/Limitations:
-    Assumes that the SystemInit function has been called prior to branching to 
-    main, and that main will enter an infinite loop and not return.
+    Assumed that this will be called before using ADC1.
 ------------------------------------------------------------------------------*/
-int main(void);
+void ADC1_Init(void);
 
 #endif

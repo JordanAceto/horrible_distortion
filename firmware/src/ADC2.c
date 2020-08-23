@@ -1,11 +1,14 @@
 /*
 --|----------------------------------------------------------------------------|
 --| FILE DESCRIPTION:
---|   main.c provides the main application entry point implementation.
+--|   ADC2.c provides the implementation for initializing ADC2.
 --|   
+--|   ADC2 channel 2 reads the audio input signal on pin PA5.
+--|  
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
---|   None
+--|   STM32F334xx Reference Manual, page 104 (RCC)
+--|   STM32F334xx Reference Manual, page 211 (ADC)
 --|
 --|----------------------------------------------------------------------------|
 */
@@ -16,7 +19,7 @@
 --|----------------------------------------------------------------------------|
 */
 
-#include "main.h"
+#include "stm32f3xx.h"
 
 /*
 --|----------------------------------------------------------------------------|
@@ -52,6 +55,14 @@
 
 /*
 --|----------------------------------------------------------------------------|
+--| PUBLIC VARIABLES
+--|----------------------------------------------------------------------------|
+*/
+
+/* None */
+
+/*
+--|----------------------------------------------------------------------------|
 --| PRIVATE HELPER FUNCTION PROTOTYPES
 --|----------------------------------------------------------------------------|
 */
@@ -64,39 +75,40 @@
 --|----------------------------------------------------------------------------|
 */
 
-int main(void)
+void ADC2_Init(void)
 {
+    // enable ADC 1 and 2 (you can only enable them both at once)
+    RCC->AHBENR |= RCC_AHBENR_ADC12EN;
 
-    while(1)
+    // PLL clock divided by 2?
+    RCC->CFGR2 |= RCC_CFGR2_ADCPRE12_4 | RCC_CFGR2_ADCPRE12_0;
+
+    // enable GPIO port A
+    RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
+
+    // enable the ADC voltage regulator
+    ADC2->CR |= ADC_CR_ADVREGEN_0;
+
+    // first conversion is channel 2, the audio input
+    ADC2->SQR1 |= ADC_SQR1_SQ1_1;
+
+    // set calibration to single ended
+    ADC2->CR &= ~ADC_CR_ADCALDIF;
+
+    // start the calibration
+    ADC2->CR |= ADC_CR_ADCAL;
+
+    while (ADC2->CR & ADC_CR_ADCAL)
     {
+        // wait for the calibration to complete
+    }
 
-        // start a conversion of the audio signal
-        ADC2->CR |= ADC_CR_ADSTART;
+    // enable ADC2
+    ADC2->CR |= ADC_CR_ADEN;
 
-        while (!(ADC2->ISR & ADC_ISR_EOC))
-        {
-            // wait for conversion to complete
-        }
-
-        // save the digitized audio sample in the global variable
-        audio_signal_reading = ADC2->DR;
-
-        while (!(ADC2->ISR & ADC_ISR_EOS))
-        {
-            // wait for the end of the regular sequence to complete
-        }
-
-        // clear the EOS flag
-        ADC2->ISR |= ADC_ISR_EOS;
-
-        // write the audio signal straight to the DAC as a test
-        DAC1->DHR12R1 = audio_signal_reading;
-
-        // trigger the DAC to update the output
-        DAC1->SWTRIGR |= DAC_SWTRIGR_SWTRIG1;
-
-        // short delay
-        SysTick_Delay_mSec(1);
+    while (!(ADC2->ISR & ADC_ISR_ADRDY))
+    {
+        // wait until the ADC is ready
     }
 }
 
