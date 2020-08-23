@@ -1,11 +1,12 @@
 /*
 --|----------------------------------------------------------------------------|
 --| FILE DESCRIPTION:
---|   main.c provides the main application entry point implementation.
---|   
+--|   DMA.c provides the implementation for initializing the Direct Memory Access
+--|   controller.
+--|
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
---|   None
+--|   STM32F334xx Reference Manual, page 170
 --|
 --|----------------------------------------------------------------------------|
 */
@@ -16,7 +17,8 @@
 --|----------------------------------------------------------------------------|
 */
 
-#include "main.h"
+#include "global_data.h"
+#include "stm32f3xx.h"
 
 /*
 --|----------------------------------------------------------------------------|
@@ -52,6 +54,14 @@
 
 /*
 --|----------------------------------------------------------------------------|
+--| PUBLIC VARIABLES
+--|----------------------------------------------------------------------------|
+*/
+
+/* None */
+
+/*
+--|----------------------------------------------------------------------------|
 --| PRIVATE HELPER FUNCTION PROTOTYPES
 --|----------------------------------------------------------------------------|
 */
@@ -64,20 +74,12 @@
 --|----------------------------------------------------------------------------|
 */
 
-int main(void)
+void DMA_Init(void)
 {
+    // enable DMA clock access
+    RCC->AHBENR |= RCC_AHBENR_DMA1EN;
 
-    while(1)
-    {
-
-        audio_signal_reading = ADC2->DR;
-
-        // write the audio signal straight to the DAC as a test
-        DAC1->DHR12R1 = audio_signal_reading;
-
-        // trigger the DAC to update the output
-        DAC1->SWTRIGR |= DAC_SWTRIGR_SWTRIG1;
-    }
+    // do DMA init stuff here
 }
 
 /*

@@ -1,14 +1,26 @@
 /*
 --|----------------------------------------------------------------------------|
 --| FILE DESCRIPTION:
---|   main.c provides the main application entry point implementation.
+--|   TIM6.h provides the interface for initializing TIM6.
 --|   
+--|   TIM6 sets the sample time for reading the analog input signal with ADC2
+--|   and then processing the signal before writing the bit-crushed signal
+--|   to the DAC.
+--|
+--|   The PSC register of TIM6 is dynamically modulated by the sample-rate 
+--|   control signal. Since TIM6 sets the sample time for the analog signal, 
+--|   this allows for a dynamically modulated sample rate for creating special
+--|   effects.
+--|
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
---|   None
+--|   STM32F334xx Reference Manual, page 806 (Basic Timers)
 --|
 --|----------------------------------------------------------------------------|
 */
+
+#ifndef TIM6_H_INCLUDED
+#define TIM6_H_INCLUDED
 
 /*
 --|----------------------------------------------------------------------------|
@@ -16,11 +28,11 @@
 --|----------------------------------------------------------------------------|
 */
 
-#include "main.h"
+/* None */
 
 /*
 --|----------------------------------------------------------------------------|
---| PRIVATE DEFINES
+--| PUBLIC DEFINES
 --|----------------------------------------------------------------------------|
 */
 
@@ -28,7 +40,7 @@
 
 /*
 --|----------------------------------------------------------------------------|
---| PRIVATE TYPES
+--| PUBLIC TYPES
 --|----------------------------------------------------------------------------|
 */
 
@@ -36,7 +48,7 @@
 
 /*
 --|----------------------------------------------------------------------------|
---| PRIVATE CONSTANTS
+--| PUBLIC CONSTANTS
 --|----------------------------------------------------------------------------|
 */
 
@@ -44,7 +56,7 @@
 
 /*
 --|----------------------------------------------------------------------------|
---| PRIVATE VARIABLES
+--| PUBLIC VARIABLES
 --|----------------------------------------------------------------------------|
 */
 
@@ -52,38 +64,28 @@
 
 /*
 --|----------------------------------------------------------------------------|
---| PRIVATE HELPER FUNCTION PROTOTYPES
+--| PUBLIC FUNCTION PROTOTYPES
 --|----------------------------------------------------------------------------|
 */
 
-/* None */
+void TIM6_DAC1_IRQHandler(void);
 
-/*
---|----------------------------------------------------------------------------|
---| PUBLIC FUNCTION DEFINITIONS
---|----------------------------------------------------------------------------|
-*/
+/*------------------------------------------------------------------------------
+Function Name:
+    TIM6_Init
 
-int main(void)
-{
+Function Description:
+    Perform initialization of TIM6.
 
-    while(1)
-    {
+Parameters:
+    None
 
-        audio_signal_reading = ADC2->DR;
+Returns:
+    None
 
-        // write the audio signal straight to the DAC as a test
-        DAC1->DHR12R1 = audio_signal_reading;
+Assumptions/Limitations:
+    Assumed that this will be called before using TIM6.
+------------------------------------------------------------------------------*/
+void TIM6_Init(void);
 
-        // trigger the DAC to update the output
-        DAC1->SWTRIGR |= DAC_SWTRIGR_SWTRIG1;
-    }
-}
-
-/*
---|----------------------------------------------------------------------------|
---| PRIVATE HELPER FUNCTION DEFINITIONS
---|----------------------------------------------------------------------------|
-*/
-
-/* None */
+#endif

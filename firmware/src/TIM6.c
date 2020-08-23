@@ -1,11 +1,20 @@
 /*
 --|----------------------------------------------------------------------------|
 --| FILE DESCRIPTION:
---|   main.c provides the main application entry point implementation.
+--|   TIM6.c provides the implementation for initializing TIM6.
 --|   
+--|   TIM6 sets the sample time for reading the analog input signal with ADC2
+--|   and then processing the signal before writing the bit-crushed signal
+--|   to the DAC.
+--|
+--|   The PSC register of TIM6 is dynamically modulated by the sample-rate 
+--|   control signal. Since TIM6 sets the sample time for the analog signal, 
+--|   this allows for a dynamically modulated sample rate for creating special
+--|   effects.
+--|
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
---|   None
+--|   STM32F334xx Reference Manual, page 806 (Basic Timers)
 --|
 --|----------------------------------------------------------------------------|
 */
@@ -16,7 +25,7 @@
 --|----------------------------------------------------------------------------|
 */
 
-#include "main.h"
+#include "stm32f3xx.h"
 
 /*
 --|----------------------------------------------------------------------------|
@@ -52,6 +61,14 @@
 
 /*
 --|----------------------------------------------------------------------------|
+--| PUBLIC VARIABLES
+--|----------------------------------------------------------------------------|
+*/
+
+/* None */
+
+/*
+--|----------------------------------------------------------------------------|
 --| PRIVATE HELPER FUNCTION PROTOTYPES
 --|----------------------------------------------------------------------------|
 */
@@ -64,20 +81,24 @@
 --|----------------------------------------------------------------------------|
 */
 
-int main(void)
+void TIM6_Init(void)
 {
 
-    while(1)
-    {
+    NVIC_SetPriority(TIM6_DAC1_IRQn, 0x03);
+    NVIC_EnableIRQ(TIM6_DAC1_IRQn);
 
-        audio_signal_reading = ADC2->DR;
+    // enable clock control for timer 6
+    RCC->APB1ENR |= RCC_APB1ENR_TIM6EN;
 
-        // write the audio signal straight to the DAC as a test
-        DAC1->DHR12R1 = audio_signal_reading;
+    // set master mode selection to update TRGO
+    TIM6->CR2 |= TIM_CR2_MMS_1;
 
-        // trigger the DAC to update the output
-        DAC1->SWTRIGR |= DAC_SWTRIGR_SWTRIG1;
-    }
+    // initial period of 10kHz
+    TIM6->PSC = 3600u - 1u;
+    TIM6->ARR = 1u;
+
+    // enable the timer
+    TIM6->CR1 |= TIM_CR1_CEN;
 }
 
 /*

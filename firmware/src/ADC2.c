@@ -80,17 +80,29 @@ void ADC2_Init(void)
     // enable ADC 1 and 2 (you can only enable them both at once)
     RCC->AHBENR |= RCC_AHBENR_ADC12EN;
 
-    // PLL clock divided by 2?
+    // use PLL clock divided by 2
     RCC->CFGR2 |= RCC_CFGR2_ADCPRE12_4 | RCC_CFGR2_ADCPRE12_0;
 
     // enable GPIO port A
     RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
 
-    // enable the ADC voltage regulator
-    ADC2->CR |= ADC_CR_ADVREGEN_0;
-
-    // first conversion is channel 2, the audio input
+    // first and only conversion is channel 2, the audio input
     ADC2->SQR1 |= ADC_SQR1_SQ1_1;
+
+    // external trigger on rising edge
+    ADC2->CFGR |= ADC_CFGR_EXTEN_0;
+
+    // set external trigger source to TIM6 TRGO
+    ADC2->CFGR |= ADC_CFGR_EXTSEL_0 | ADC_CFGR_EXTSEL_2 | ADC_CFGR_EXTSEL_3;
+
+    // enable discontinuous mode
+    ADC2->CFGR |= ADC_CFGR_DISCEN;
+
+    // allow overwritting with the last conversion on an overrun
+    ADC2->CFGR |= ADC_CFGR_OVRMOD;
+
+    // 19.5 ADC clock cycles per acquisition
+    ADC2->SMPR1 |= ADC_SMPR1_SMP1_2;
 
     // set calibration to single ended
     ADC2->CR &= ~ADC_CR_ADCALDIF;
@@ -110,6 +122,9 @@ void ADC2_Init(void)
     {
         // wait until the ADC is ready
     }
+
+    // start the ADC
+    ADC2->CR |= ADC_CR_ADSTART;
 }
 
 /*

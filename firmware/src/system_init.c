@@ -34,10 +34,12 @@
 #include "ADC1.h"
 #include "ADC2.h"
 #include "DAC1.h"
+#include "DMA.h"
 #include "GPIO.h"
 #include "RCC.h"
 #include "stm32f3xx.h"
 #include "SysTick.h"
+#include "TIM6.h"
 
 /*
 --|----------------------------------------------------------------------------|
@@ -112,12 +114,18 @@ uint32_t SystemCoreClock = 72E6;
 
 void SystemInit(void)
 {
+    __disable_irq();
+
     RCC_Init();
     SysTick_Init();
     GPIO_Init();
     ADC1_Init();
     ADC2_Init();
     DAC1_Init();
+    DMA_Init();
+    TIM6_Init();
+
+    __enable_irq();
 }
 
 /*
