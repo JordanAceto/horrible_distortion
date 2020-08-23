@@ -131,6 +131,14 @@ int main(void)
         {
             GPIOA->BSRR = GPIO_BSRR_BR_9;
         }  
+
+        // write the resolution pot to the DAC as a test
+        DAC1->DHR12R1 = bit_resolution_reading;
+
+        DAC1->SWTRIGR |= DAC_SWTRIGR_SWTRIG1;
+
+        // short delay
+        SysTick_Delay_mSec(10);
     }
 }
 

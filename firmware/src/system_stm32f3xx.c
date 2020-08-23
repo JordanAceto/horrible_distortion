@@ -9,9 +9,28 @@
 --|
 --|   The SysTick timer is set up to count in milliseconds.
 --|
---|    The GREEN and RED LEDs on PA8 and PA9 are set to outputs, and written
---|    low to start.
+--|   The GREEN and RED LEDs on PA8 and PA9 are set to outputs, and written
+--|   low to start.
+--|   
+--|   TODO: ADC1
+--|   
+--|   TODO: ADC2
+--|   
+--|   TODO: DAC
+--|   
+--|   TODO: TIM3
+--|   
+--|   TODO: TIM6
 --|
+--|   TODO: DMA
+--|
+--|
+--|
+--|
+--|
+--|
+--|
+--|   
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
 --|   None
@@ -95,7 +114,12 @@ Function Name:
     RCC_Init
 
 Function Description:
-    Perform initialization of the Reset and Clock Control registers.
+    Perform initialization of the Reset and Clock Control registers. Sets the 
+    system clock to use the external 8MHz crystal oscillator, multiplied by
+    the PLL to reach a final clock frequency of 72MHz.
+
+    Since the final clock frequency is greater than 48MHz, two wait states
+    are added to the FLASH controller.
 
 Parameters:
     None
@@ -132,7 +156,9 @@ Function Name:
     GPIO_Init
 
 Function Description:
-    Perform initialization of the GPIO pins
+    Perform initialization of the GPIO pins. Sets up the control signal ADC 
+    inputs, the audio ADC input, the audio DAC output, and the red and green 
+    LEDs as outputs.
 
 Parameters:
     None
@@ -150,7 +176,7 @@ Function Name:
     ADC1_Init
 
 Function Description:
-    Perform initialization of ADC1
+    Perform initialization of ADC1.
 
 Parameters:
     None
@@ -162,6 +188,25 @@ Assumptions/Limitations:
     Assumed that this will be called before branching to the main application.
 ------------------------------------------------------------------------------*/
 void ADC1_Init(void);
+
+/*------------------------------------------------------------------------------
+Function Name:
+    DAC1_Init
+
+Function Description:
+    Perform initialization of the DAC. DAC1 channel 1 outputs the processed
+    audio signal.
+
+Parameters:
+    None
+
+Returns:
+    None
+
+Assumptions/Limitations:
+    Assumed that this will be called before branching to the main application.
+------------------------------------------------------------------------------*/
+void DAC1_Init(void);
 
 /*
 --|----------------------------------------------------------------------------|
@@ -175,6 +220,7 @@ void SystemInit(void)
     SysTick_Init();
     GPIO_Init();
     ADC1_Init();
+    DAC1_Init();
 }
 
 /*
@@ -249,10 +295,22 @@ void GPIO_Init(void)
     // enable GPIO port A
     RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
 
-    // set the GREEN LED on port A pin 8 to output
+    // set PA0 to analog mode, PA0 is connected to the resolution_CV_in node
+    GPIOA->MODER |= GPIO_MODER_MODER0_0 | GPIO_MODER_MODER0_1;
+
+    // set PA1 to analog mode, PA1 is connected to the sample_rate_CV_in node
+    GPIOA->MODER |= GPIO_MODER_MODER1_0 | GPIO_MODER_MODER1_1;
+
+    // set PA4 to analog mode, PA4 is connected to the DAC audio input signal
+    GPIOA->MODER |= GPIO_MODER_MODER4_0 | GPIO_MODER_MODER4_1;
+
+    // set PA5 to analog mode, PA5 is connected to the audio input signal
+    GPIOA->MODER |= GPIO_MODER_MODER5_0 | GPIO_MODER_MODER5_1;
+
+    // set PA8 to digital output, PA8 is connected to the GREEN LED
     GPIOA->MODER |= GPIO_MODER_MODER8_0;
 
-    // set RED LED on port A pin 9 to output
+    // set PA9 to digital output, PA9 is connected to the RED LED
     GPIOA->MODER |= GPIO_MODER_MODER9_0;
 
     // turn the LEDs off
@@ -270,19 +328,13 @@ void ADC1_Init(void)
     // enable GPIO port A
     RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
 
-    // set PA0 to analog mode, PA0 is connected to the resolution_CV_in node
-    GPIOA->MODER |= GPIO_MODER_MODER0_0 | GPIO_MODER_MODER0_1;
-
-    // set PA1 to analog mode, PA1 is connected to the sample_rate_CV_in node
-    GPIOA->MODER |= GPIO_MODER_MODER1_0 | GPIO_MODER_MODER1_1;
-
     // enable the ADC voltage regulator
     ADC1->CR |= ADC_CR_ADVREGEN_0;
 
-    // first conversion is channel 1, resolution
+    // first conversion is channel 1, the resolution CV parameter
     ADC1->SQR1 |= ADC_SQR1_SQ1_0;
 
-    // second conversion is channel 2, sample rate
+    // second conversion is channel 2, the sample-rate CV parameter
     ADC1->SQR1 |= ADC_SQR1_SQ2_1;
 
     // regular channel sequence length = 2
@@ -306,4 +358,19 @@ void ADC1_Init(void)
     {
         // wait until the ADC is ready
     }
+}
+
+void DAC1_Init(void)
+{
+    // enable DAC1 clock control
+    RCC->APB1ENR |= RCC_APB1ENR_DAC1EN;
+
+    // enable triggers for DAC1
+    DAC1->CR |= DAC_CR_TEN1;
+
+    // set DAC1 to use software triggers
+    DAC1->CR |= DAC_CR_TSEL1_0 | DAC_CR_TSEL1_1 | DAC_CR_TSEL1_2;
+
+    // enable DAC1
+    DAC1->CR |= DAC_CR_EN1;
 }
