@@ -39,6 +39,7 @@
 #include "RCC.h"
 #include "stm32f3xx.h"
 #include "SysTick.h"
+#include "TIM3.h"
 #include "TIM6.h"
 
 /*
@@ -123,6 +124,7 @@ void SystemInit(void)
     ADC2_Init();
     DAC1_Init();
     DMA_Init();
+    TIM3_Init();
     TIM6_Init();
 
     __enable_irq();

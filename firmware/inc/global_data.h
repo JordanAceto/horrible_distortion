@@ -28,12 +28,7 @@
 --|----------------------------------------------------------------------------|
 */
 
-/*
---| NAME: UI12_MAX
---| DESCRIPTION: max value of unsigned 12 bit signal
---| TYPE: uint
-*/
-#define UI12_MAX (0x0FFFu)
+/* None */
 
 /*
 --|----------------------------------------------------------------------------|
@@ -67,15 +62,8 @@ typedef enum Control_Input_Enumeration
 */
 
 /*
---| NAME: audio_signal_reading
---| DESCRIPTION: the digitized audio signal reading
---| TYPE: uint32_t
-*/
-uint32_t audio_signal_reading;
-
-/*
 --| NAME: control_reading
---| DESCRIPTION: the digitized control signal readings
+--| DESCRIPTION: the digitized control signal readings, filled via DMA
 --| TYPE: uint32_t
 */
 uint32_t control_reading[NUM_CONTROL_INPUTS];

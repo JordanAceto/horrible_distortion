@@ -5,6 +5,9 @@
 --|   
 --|   ADC2 channel 2 reads the audio input signal on pin PA5.
 --|  
+--|   The frequency of TIM6 is dynamically modulated to achieve special sample
+--|   rate reduction aliasing effects of the ADC2 reading.
+--| 
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
 --|   STM32F334xx Reference Manual, page 104 (RCC)

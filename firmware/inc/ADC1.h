@@ -7,6 +7,9 @@
 --|   The bit-depth control signal is read with ADC1 channel 1, on pin PA0.
 --|   The sample-rate control signal is read with ADC1 channel 2, on pin PA1.
 --|
+--|   The control signals are both delivered to the global storage signal
+--|   control_reading[] via DMA.
+--|
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
 --|   STM32F334xx Reference Manual, page 104 (RCC)
@@ -70,6 +73,10 @@ Function Name:
 
 Function Description:
     Perform initialization of ADC1.
+
+    ADC1 is configured to automatically scan the control signals for bit-depth
+    and sample-rate at a period defined by TIM3. The readings are automatically 
+    delivered to the global signal control_reading[] via the DMA controller.
 
 Parameters:
     None

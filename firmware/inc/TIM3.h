@@ -1,24 +1,20 @@
 /*
 --|----------------------------------------------------------------------------|
 --| FILE DESCRIPTION:
---|   ADC2.h provides the interface for initializing ADC2.
+--|   TIM3.h provides the interface for initializing TIM3.
 --|   
---|   ADC2 channel 2 automatically reads the audio input signal on pin PA5
---|   at a frequency defined by TIM6.
+--|   TIM3 sets the sample time for reading the analog control signals for
+--|   bit-resolution and audio-sample-rate.
 --|
---|   The frequency of TIM6 is dynamically modulated to achieve special sample
---|   rate reduction aliasing effects of the ADC2 reading.
---|   
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
---|   STM32F334xx Reference Manual, page 104 (RCC)
---|   STM32F334xx Reference Manual, page 211 (ADC)
+--|   STM32F334xx Reference Manual, page 478 (General Purpose Timers)
 --|
 --|----------------------------------------------------------------------------|
 */
 
-#ifndef ADC2_H_INCLUDED
-#define ADC2_H_INCLUDED
+#ifndef TIM3_H_INCLUDED
+#define TIM3_H_INCLUDED
 
 /*
 --|----------------------------------------------------------------------------|
@@ -68,14 +64,12 @@
 
 /*------------------------------------------------------------------------------
 Function Name:
-    ADC2_Init
+    TIM3_Init
 
 Function Description:
-    Perform initialization of ADC2.
+    Perform initialization of TIM3.
 
-    ADC2 is configured to automatically sample the audio input signal at a
-    period defined by TIM6. The sampled audio will be continuously available
-    in the ADC2 Data Register.
+    TIM3 is configured to provide the trigger for performing ADC1 conversions.
 
 Parameters:
     None
@@ -84,8 +78,8 @@ Returns:
     None
 
 Assumptions/Limitations:
-    Assumed that this will be called before using ADC2.
+    Assumed that this will be called before using TIM3.
 ------------------------------------------------------------------------------*/
-void ADC2_Init(void);
+void TIM3_Init(void);
 
 #endif

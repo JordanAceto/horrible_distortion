@@ -1,3 +1,16 @@
+/*
+--|----------------------------------------------------------------------------|
+--| FILE DESCRIPTION:
+--|   startup.s provides the system startup code. The stack pointer and BSS 
+--|   sections are set up, execution branches to the SystemInit function, and
+--|   then execution branches to the main application function.
+--|   
+--|----------------------------------------------------------------------------|
+--| REFERENCES:
+--|   None
+--|
+--|----------------------------------------------------------------------------|
+*/
 
 .syntax unified
 .cpu cortex-m4
@@ -67,8 +80,7 @@ LoopFillZerobss:
 
 /* Call the clock system intitialization function.*/
 bl      SystemInit
-/* Call static constructors */
-//bl      __libc_init_array // don't branch to this one
+
 /* Call the application's entry point.*/
 bl	    main
 

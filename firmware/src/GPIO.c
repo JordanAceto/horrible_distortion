@@ -3,7 +3,12 @@
 --| FILE DESCRIPTION:
 --|   GPIO.c provides the implementation for initializing the GPIO pins.
 --|   
---|   
+--|   PA0 is an analog input mapped to the bit-resolution CV signal.
+--|   PA1 is an analog input mapped to the sample-rate CV signal.
+--|   PA4 is the DAC output which outputs the processed audio signal.
+--|   PA5 is an analog input mapped to the audio input signal.
+--|   PA8 is a discrete output mapped to the GREEN LED.
+--|   PA9 is a discrete output mapped to the RED LED. 
 --|  
 --|----------------------------------------------------------------------------|
 --| REFERENCES:

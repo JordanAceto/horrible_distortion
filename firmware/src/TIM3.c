@@ -1,24 +1,18 @@
 /*
 --|----------------------------------------------------------------------------|
 --| FILE DESCRIPTION:
---|   ADC2.h provides the interface for initializing ADC2.
+--|   TIM3.c provides the implementation for initializing TIM3.
 --|   
---|   ADC2 channel 2 automatically reads the audio input signal on pin PA5
---|   at a frequency defined by TIM6.
+--|   TIM3 sets the sample time for reading the analog control signals for
+--|   bit-resolution and audio-sample-rate.
 --|
---|   The frequency of TIM6 is dynamically modulated to achieve special sample
---|   rate reduction aliasing effects of the ADC2 reading.
---|   
+--|
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
---|   STM32F334xx Reference Manual, page 104 (RCC)
---|   STM32F334xx Reference Manual, page 211 (ADC)
+--|   STM32F334xx Reference Manual, page 478 (General Purpose Timers)
 --|
 --|----------------------------------------------------------------------------|
 */
-
-#ifndef ADC2_H_INCLUDED
-#define ADC2_H_INCLUDED
 
 /*
 --|----------------------------------------------------------------------------|
@@ -26,11 +20,11 @@
 --|----------------------------------------------------------------------------|
 */
 
-/* None */
+#include "stm32f3xx.h"
 
 /*
 --|----------------------------------------------------------------------------|
---| PUBLIC DEFINES
+--| PRIVATE DEFINES
 --|----------------------------------------------------------------------------|
 */
 
@@ -38,7 +32,7 @@
 
 /*
 --|----------------------------------------------------------------------------|
---| PUBLIC TYPES
+--| PRIVATE TYPES
 --|----------------------------------------------------------------------------|
 */
 
@@ -46,7 +40,15 @@
 
 /*
 --|----------------------------------------------------------------------------|
---| PUBLIC CONSTANTS
+--| PRIVATE CONSTANTS
+--|----------------------------------------------------------------------------|
+*/
+
+/* None */
+
+/*
+--|----------------------------------------------------------------------------|
+--| PRIVATE VARIABLES
 --|----------------------------------------------------------------------------|
 */
 
@@ -62,30 +64,38 @@
 
 /*
 --|----------------------------------------------------------------------------|
---| PUBLIC FUNCTION PROTOTYPES
+--| PRIVATE HELPER FUNCTION PROTOTYPES
 --|----------------------------------------------------------------------------|
 */
 
-/*------------------------------------------------------------------------------
-Function Name:
-    ADC2_Init
+/* None */
 
-Function Description:
-    Perform initialization of ADC2.
+/*
+--|----------------------------------------------------------------------------|
+--| PUBLIC FUNCTION DEFINITIONS
+--|----------------------------------------------------------------------------|
+*/
 
-    ADC2 is configured to automatically sample the audio input signal at a
-    period defined by TIM6. The sampled audio will be continuously available
-    in the ADC2 Data Register.
+void TIM3_Init(void)
+{
+    // enable clock control for timer 3
+    RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;
 
-Parameters:
-    None
+    // set master mode selection to update TRGO
+    TIM3->CR2 |= TIM_CR2_MMS_1;
 
-Returns:
-    None
+    // control signal sample rate = 1kHz
+    TIM3->PSC = 36u - 1u;
+    TIM3->ARR = 1000u - 1u;
 
-Assumptions/Limitations:
-    Assumed that this will be called before using ADC2.
-------------------------------------------------------------------------------*/
-void ADC2_Init(void);
+    // enable the timer
+    TIM3->CR1 |= TIM_CR1_CEN;
+}
 
-#endif
+/*
+--|----------------------------------------------------------------------------|
+--| PRIVATE HELPER FUNCTION DEFINITIONS
+--|----------------------------------------------------------------------------|
+*/
+
+/* None */

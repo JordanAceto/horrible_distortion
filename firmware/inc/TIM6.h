@@ -75,6 +75,8 @@ Function Name:
 Function Description:
     Perform initialization of TIM6.
 
+    TIM6 is configured to provide the trigger for peforming ADC2 conversions.
+
 Parameters:
     None
 

@@ -89,7 +89,7 @@ void TIM6_Init(void)
     // set master mode selection to update TRGO
     TIM6->CR2 |= TIM_CR2_MMS_1;
 
-    // initial period of 10kHz
+    // initial audio signal sample rate of 10kHz, will be modulated dynamically
     TIM6->PSC = 3600u - 1u;
     TIM6->ARR = 1u;
 
