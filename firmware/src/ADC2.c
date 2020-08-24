@@ -65,6 +65,9 @@ void ADC2_Init(void)
     // start the calibration
     ADC2->CR |= ADC_CR_ADCAL;
 
+    // enable End Of Conversion interrupts
+    ADC2->IER |= ADC_IER_EOC;
+
     while (ADC2->CR & ADC_CR_ADCAL)
     {
         // wait for the calibration to complete

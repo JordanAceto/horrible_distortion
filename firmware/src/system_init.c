@@ -36,6 +36,7 @@
 #include "DAC1.h"
 #include "DMA.h"
 #include "GPIO.h"
+#include "interrupts.h"
 #include "RCC.h"
 #include "stm32f3xx.h"
 #include "TIM3.h"
@@ -92,6 +93,7 @@ void SystemInit(void)
     DMA_Init();
     TIM3_Init();
     TIM6_Init();
+    interrupts_Init();
 
     __enable_irq();
 }

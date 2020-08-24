@@ -40,6 +40,9 @@ void TIM3_Init(void)
     TIM3->PSC = 36u - 1u;
     TIM3->ARR = 1000u - 1u;
 
+    // enable TIM3 Update Interrupts
+    TIM3->DIER |= TIM_DIER_UIE;
+
     // enable the timer
     TIM3->CR1 |= TIM_CR1_CEN;
 }

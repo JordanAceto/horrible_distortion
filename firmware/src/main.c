@@ -2,21 +2,19 @@
 --|----------------------------------------------------------------------------|
 --| FILE DESCRIPTION:
 --|   main.c provides the main application entry point implementation.
---|   
+--|
+--|   The main.c function is simply an empty while true loop. The processing
+--|   happens automatically: Analog To Digital converters are automatically
+--|   triggered by timers. Global data is filled via the Direct-Memory-Access
+--|   (DMA) controller. Further signal processign takes place in 
+--|   Interrupt-Service-Routines (ISRs).
+--|
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
 --|   None
 --|
 --|----------------------------------------------------------------------------|
 */
-
-/*
---|----------------------------------------------------------------------------|
---| INCLUDE FILES
---|----------------------------------------------------------------------------|
-*/
-
-#include "main.h"
 
 /*
 --|----------------------------------------------------------------------------|
@@ -29,13 +27,9 @@ int main(void)
 
     while(1)
     {
-        // write the signals straight to the DAC as a test, uncomment to test
-
-        DAC1->DHR12R1 = ADC2->DR;
-        // DAC1->DHR12R1 = control_reading[CONTROL_INPUT_BIT_DEPTH];
-        // DAC1->DHR12R1 = control_reading[CONTROL_INPUT_SAMPLE_RATE];
-
-        // trigger the DAC to update the output
-        DAC1->SWTRIGR |= DAC_SWTRIGR_SWTRIG1;
+        // nothing to see here
     }
+
+    // never reached
+    return 0;
 }
