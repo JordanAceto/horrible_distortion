@@ -1,9 +1,12 @@
 /*
 --|----------------------------------------------------------------------------|
 --| FILE DESCRIPTION:
---|   startup.s provides the system startup code. The stack pointer and BSS 
---|   sections are set up, execution branches to the SystemInit function, and
---|   then execution branches to the main application function.
+--|   startup.s provides the system startup code and the exception handler
+--|   vector table. 
+--|
+--|   The stack pointer and BSS sections are set up, execution branches to the 
+--|   SystemInit function, and then execution branches to the main application 
+--|   function.
 --|   
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
@@ -34,14 +37,24 @@ defined in linker script */
 
 .equ  BootRAM,  0xF1E0F85F
 
-/**
- * @brief  This is the code that gets called when the processor first
- *          starts execution following a reset event. Only the absolutely
- *          necessary set is performed, after which the application
- *          supplied main() routine is called.
- * @param  None
- * @retval : None
-*/
+/*------------------------------------------------------------------------------
+Function Name:
+    Reset_Handler
+
+Function Description:
+    This is the code that gets called when the processor first starts execution 
+    following a reset event. Only the absolutely necessary set is performed, 
+    after which the application supplied main() routine is called.
+
+Parameters:
+    None
+
+Returns:
+    None
+
+Assumptions/Limitations:
+    Assumed that this will be placed at the top of the ISR vector table.
+------------------------------------------------------------------------------*/
     .section	.text.Reset_Handler
     .weak	    Reset_Handler
     .type	    Reset_Handler, %function
@@ -78,10 +91,10 @@ LoopFillZerobss:
 	cmp	    r2, r3
 	bcc	    FillZerobss
 
-/* Call the clock system intitialization function.*/
+/* Call the clock system intitialization function */
 bl      SystemInit
 
-/* Call the application's entry point.*/
+/* Call the application's entry point */
 bl	    main
 
 LoopForever:
@@ -89,27 +102,35 @@ LoopForever:
     
 .size	Reset_Handler, .-Reset_Handler
 
-/**
- * @brief  This is the code that gets called when the processor receives an
- *         unexpected interrupt.  This simply enters an infinite loop, preserving
- *         the system state for examination by a debugger.
- *
- * @param  None
- * @retval : None
-*/
+/*------------------------------------------------------------------------------
+Function Name:
+    Default_Handler
+
+Function Description:
+    This is the code that gets called when the processor receives an unexpected
+    interrupt. This simply enters an infinite loop, preserving the system state 
+    for examination by a debugger.
+
+Parameters:
+    None
+
+Returns:
+    None
+
+Assumptions/Limitations:
+    None
+------------------------------------------------------------------------------*/
     .section	.text.Default_Handler,"ax",%progbits
 Default_Handler:
 Infinite_Loop:
 	b	    Infinite_Loop
 	.size	Default_Handler, .-Default_Handler
 
-/******************************************************************************
-*
-* The minimal vector table for a Cortex-M4.  Note that the proper constructs
-* must be placed on this to ensure that it ends up at physical address
-* 0x0000.0000.
-*
-******************************************************************************/
+/*
+--|----------------------------------------------------------------------------|
+--| Minimum Vector Table for Cortex-M4
+--|----------------------------------------------------------------------------|
+*/
  	.section	.isr_vector,"a",%progbits
 	.type	    g_pfnVectors, %object
 	.size	    g_pfnVectors, .-g_pfnVectors
@@ -213,14 +234,11 @@ g_pfnVectors:
 	.word	0
 	.word	FPU_IRQHandler
 
-/*******************************************************************************
-*
-* Provide weak aliases for each Exception handler to the Default_Handler.
-* As they are weak aliases, any function with the same name will override
-* this definition.
-*
-*******************************************************************************/
-
+/*
+--|----------------------------------------------------------------------------|
+--| Weak aliases for exception handlers
+--|----------------------------------------------------------------------------|
+*/
 .weak	NMI_Handler
 .thumb_set NMI_Handler,Default_Handler
 
