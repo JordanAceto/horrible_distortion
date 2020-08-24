@@ -19,7 +19,7 @@ CMSIS_INC_DIR = ./CMSIS/Include/
 BIN_DIR       = ./bin/
 
 OPTIONS += $(MCU)
-OPTIONS += -O0
+OPTIONS += -Os
 OPTIONS += -mfloat-abi=softfp
 OPTIONS += -mfpu=fpv4-sp-d16
 OPTIONS += --specs=nosys.specs
