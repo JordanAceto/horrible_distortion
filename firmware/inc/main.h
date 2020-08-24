@@ -22,7 +22,6 @@
 #include "bit_crusher.h"
 #include "global_data.h"
 #include "stm32f334x8.h"
-#include "SysTick.h"
 
 /*
 --|----------------------------------------------------------------------------|

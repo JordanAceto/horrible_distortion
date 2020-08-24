@@ -38,7 +38,6 @@
 #include "GPIO.h"
 #include "RCC.h"
 #include "stm32f3xx.h"
-#include "SysTick.h"
 #include "TIM3.h"
 #include "TIM6.h"
 
@@ -118,7 +117,6 @@ void SystemInit(void)
     __disable_irq();
 
     RCC_Init();
-    SysTick_Init();
     GPIO_Init();
     ADC1_Init();
     ADC2_Init();
