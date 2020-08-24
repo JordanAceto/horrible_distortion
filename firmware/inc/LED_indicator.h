@@ -4,7 +4,6 @@
 --|   LED_indicator.h provides the interface for using the RED/GREEN LED
 --|   signal indicator.
 --|   
---|
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
 --|   None

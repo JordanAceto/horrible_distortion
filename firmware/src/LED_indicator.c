@@ -3,7 +3,6 @@
 --| FILE DESCRIPTION:
 --|   LED_indicator.c provides the implementation for using the RED/GREEN LED
 --|   signal indicator.
---|   
 --|
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
@@ -26,6 +25,8 @@
 --| PRIVATE DEFINES
 --|----------------------------------------------------------------------------|
 */
+
+// signal level boundaries were derived empirically, adjust to taste
 
 /*
 --| NAME: HEALTHY_SIGNAL_LOW_BOUND
@@ -54,6 +55,11 @@
 --|----------------------------------------------------------------------------|
 */
 
+/*
+--| NAME: peak
+--| DESCRIPTION: peak follower for the audio input signal
+--| TYPE: uint16_t
+*/
 static uint16_t peak;
 
 /*
@@ -70,25 +76,25 @@ void LED_indicator_show_signal_strength(void)
         peak = ADC2->DR;
     }
 
-    if (HEALTHY_SIGNAL_LOW_BOUND < peak && peak < HEALTHY_SIGNAL_HIGH_BOUND)
+    if (peak < HEALTHY_SIGNAL_LOW_BOUND)
     {
-        // green LED on, red LED off
+        // signal level is very low, both LEDs off
+        GPIOA->BSRR = (GPIO_BSRR_BR_8 | GPIO_BSRR_BR_9); 
+    }
+    else if (peak < HEALTHY_SIGNAL_HIGH_BOUND)
+    {
+        // signal level is healthy, green LED on, red LED off
         GPIOA->BSRR = (GPIO_BSRR_BS_8 | GPIO_BSRR_BR_9);
     }
-    else if (HEALTHY_SIGNAL_HIGH_BOUND < peak && peak < DANGER_ZONE_LOW_BOUND)
+    else if (peak < DANGER_ZONE_LOW_BOUND)
     {
-        // both LEDs on for orange-ish color
+        // signal level is approaching clipping, both LEDs on for orange-ish color
         GPIOA->BSRR = (GPIO_BSRR_BS_8 | GPIO_BSRR_BS_9);
-    }
-    else if (HEALTHY_SIGNAL_HIGH_BOUND < peak)
-    {
-        // green LED off, red LED on
-        GPIOA->BSRR = (GPIO_BSRR_BR_8 | GPIO_BSRR_BR_9);
     }
     else
     {
-        // both LEDs off
-        GPIOA->BSRR = (GPIO_BSRR_BR_8 | GPIO_BSRR_BR_9);
+        // signal level is clipping, green LED off, red LED on
+        GPIOA->BSRR = (GPIO_BSRR_BR_8 | GPIO_BSRR_BS_9);
     }
 
     // allow the peak to decay
