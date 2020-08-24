@@ -72,10 +72,10 @@ Parameters:
     None
 
 Returns:
-    None
+    None, mutates the TIM6 prescaler register.
 
 Assumptions/Limitations:
-    None
+    Called automatically, do not call this function.
 ------------------------------------------------------------------------------*/
 void TIM3_IRQHandler(void);
 
@@ -94,10 +94,10 @@ Parameters:
     None
 
 Returns:
-    None
+    None, updates the DAC.
 
 Assumptions/Limitations:
-    None
+    Called automatically, do not call this function.
 ------------------------------------------------------------------------------*/
 void ADC1_2_IRQHandler(void);
 

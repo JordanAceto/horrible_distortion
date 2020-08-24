@@ -60,6 +60,13 @@
 #define ADC2_IRQ_PRIORITY (1)
 
 /*
+--| NAME: UI12_MAX
+--| DESCRIPTION: max value of unsigned 12 bit signal
+--| TYPE: uint
+*/
+#define UI12_MAX (0x0FFFu)
+
+/*
 --|----------------------------------------------------------------------------|
 --| PUBLIC FUNCTION DEFINITIONS
 --|----------------------------------------------------------------------------|
@@ -78,26 +85,23 @@ void interrupts_Init(void)
 
 void TIM3_IRQHandler(void)
 {
+    // invert and scale the sample-rate control signal to take up 16 bits, and ensure that it is never zero (avoids divide by zero)
+    const uint32_t scaled_sample_rate_control_signal = ((UI12_MAX - control_reading[CONTROL_INPUT_SAMPLE_RATE]) << 4) + 1;
+
+    // set the audio sample rate by changing TIM6's prescaler register
+    TIM6->PSC = scaled_sample_rate_control_signal;
+
     // clear the Update Interrupt flag
     TIM3->SR &= ~TIM_SR_UIF;
-
-    // invert and scale the sample-rate control signal to take up 16 bits, and ensure that it is never zero (avoids divide by zero)
-    const uint32_t scaled_sample_rate_control_signal = ((0xFFF - control_reading[CONTROL_INPUT_SAMPLE_RATE]) << 4) + 1;
-
-    // set the sample rate by changing htim6's prescaler register
-    TIM6->PSC = scaled_sample_rate_control_signal;
 }
 
 void ADC1_2_IRQHandler(void)
 {
-    // clear the ADC2 End Of Conversion flag
-    ADC2->ISR &= ~ADC_ISR_EOC;
-
-    // invert and scale the input signal to take up 16 bits
-    const uint32_t scaled_input_signal = (0xFFF - ADC2->DR) << 4u;
+    // invert and scale the audio input signal to take up 16 bits (inversion keeps the audio in phase with the input)
+    const uint32_t scaled_input_signal = (UI12_MAX - ADC2->DR) << 4u;
 
     // invert and scale the bit-depth control signal to take up 16 bits
-    const uint32_t scaled_bit_control_signal = ((0xFFF - control_reading[CONTROL_INPUT_BIT_DEPTH]) + 0xFFF) << 3u;
+    const uint32_t scaled_bit_control_signal = (UI12_MAX - control_reading[CONTROL_INPUT_BIT_DEPTH]) << 4u;
 
     // process the input signal using the bit-depth control signal and scale it back down to 12 bits
     const uint32_t crushed_val = crush(scaled_input_signal, scaled_bit_control_signal) >> 4u;
@@ -105,4 +109,7 @@ void ADC1_2_IRQHandler(void)
     // update the DAC
     DAC1->DHR12R1 = crushed_val;
     DAC1->SWTRIGR |= DAC_SWTRIGR_SWTRIG1;
+
+    // clear the ADC2 End Of Conversion flag
+    ADC2->ISR &= ~ADC_ISR_EOC;
 }
