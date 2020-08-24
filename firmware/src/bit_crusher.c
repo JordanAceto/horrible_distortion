@@ -60,27 +60,20 @@
 
 uint16_t crush(uint16_t signal_input, uint16_t control_input)
 {
+    // scale the control input, derived empirically to make the control feel nice
+    const uint16_t scaled_control_input = (control_input >> 1u) + 0x6FFFu;
+
 	// take the upper four bits of the control as the cutoff position
-	const uint16_t cutoff_position = 1u << (control_input >> FRACTIONAL_RESOLUTION_IN_BITS);
+	const uint16_t cutoff_position = 1u << (scaled_control_input >> FRACTIONAL_RESOLUTION_IN_BITS);
 
 	// invert the lower 12 bits of the control signal, this is used to attenuate the bit right at the cutoff
-	const uint16_t fractional_control_signal = FRACTIONAL_BIT_MASK - (control_input & FRACTIONAL_BIT_MASK);
+	const uint16_t fractional_control_signal = FRACTIONAL_BIT_MASK - (scaled_control_input & FRACTIONAL_BIT_MASK);
 
 	// keep everything above the cutoff (aka throw away everything at the cutoff and lower)
 	uint16_t retval = signal_input & ~(cutoff_position | (cutoff_position - 1u));
 
-    // TODO: finalize and tidy up the code below
-	if (cutoff_position == (1u << 15u))
-	{
-		// do weird offset stuff at the last cutoff position, work in progress here
-		signal_input += (fractional_control_signal << 4u);
-		retval = (signal_input & cutoff_position);
-	}
-	else // this is the normal path
-	{
-		// and add in the attenuated contribution of the bit right at the cutoff
-		retval += ((signal_input & cutoff_position) * fractional_control_signal) >> FRACTIONAL_RESOLUTION_IN_BITS;
-	}
+    // and add in the attenuated contribution of the bit right at the cutoff
+    retval += ((signal_input & cutoff_position) * fractional_control_signal) >> FRACTIONAL_RESOLUTION_IN_BITS;
 
 	return retval;
 }
