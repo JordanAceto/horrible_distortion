@@ -35,6 +35,7 @@
 
 #include "bit_crusher.h"
 #include "global_data.h"
+#include "LED_indicator.h"
 #include "stm32f3xx.h"
 
 /*
@@ -90,6 +91,9 @@ void TIM3_IRQHandler(void)
 
     // set the audio sample rate by changing TIM6's prescaler register
     TIM6->PSC = scaled_sample_rate_control_signal;
+
+    // update the red/green LED signal strength indicator
+    LED_indicator_show_signal_strength();
 
     // clear the Update Interrupt flag
     TIM3->SR &= ~TIM_SR_UIF;
