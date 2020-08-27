@@ -34,9 +34,9 @@
 */
 typedef enum Control_Input_Enumeration
 {
-	CONTROL_INPUT_BIT_DEPTH = 0,
-	CONTROL_INPUT_SAMPLE_RATE,
-	NUM_CONTROL_INPUTS
+    CONTROL_INPUT_BIT_DEPTH = 0,
+    CONTROL_INPUT_SAMPLE_RATE,
+    NUM_CONTROL_INPUTS
 } Control_Input_enum;
 
 /*

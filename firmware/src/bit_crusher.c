@@ -63,17 +63,17 @@ uint16_t crush(uint16_t signal_input, uint16_t control_input)
     // scale the control input, derived empirically to make the control feel nice
     const uint16_t scaled_control_input = (control_input >> 1u) + 0x6FFFu;
 
-	// take the upper four bits of the control as the cutoff position
-	const uint16_t cutoff_position = 1u << (scaled_control_input >> FRACTIONAL_RESOLUTION_IN_BITS);
+    // take the upper four bits of the control as the cutoff position
+    const uint16_t cutoff_position = 1u << (scaled_control_input >> FRACTIONAL_RESOLUTION_IN_BITS);
 
     // take the lower 12 bits of the scaled control signal, this is used to attenuate the bit right at the cutoff
     const uint16_t fractional_control_signal = scaled_control_input & FRACTIONAL_BIT_MASK;
 
-	// throw away all bits below the cutoff
+    // throw away all bits below the cutoff
     signal_input &= ~(cutoff_position - 1u);
 
     // then subtract the attenuated fraction of the bit right at the cutoff
     signal_input -= ((signal_input & cutoff_position) * fractional_control_signal) >> FRACTIONAL_RESOLUTION_IN_BITS;
 
-	return signal_input;
+    return signal_input;
 }
