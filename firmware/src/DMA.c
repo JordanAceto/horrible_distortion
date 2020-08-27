@@ -36,8 +36,6 @@ void DMA_Init(void)
     // enable DMA clock access
     RCC->AHBENR |= RCC_AHBENR_DMA1EN;
 
-    // do DMA init stuff here
-
     // set circular mode
     DMA1_Channel1->CCR |= DMA_CCR_CIRC;
 
