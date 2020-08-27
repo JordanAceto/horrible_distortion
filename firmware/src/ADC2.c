@@ -59,14 +59,14 @@ void ADC2_Init(void)
     // 19.5 ADC clock cycles per acquisition
     ADC2->SMPR1 |= ADC_SMPR1_SMP1_2;
 
+    // enable End Of Conversion interrupts
+    ADC2->IER |= ADC_IER_EOC;
+    
     // set calibration to single ended
     ADC2->CR &= ~ADC_CR_ADCALDIF;
 
     // start the calibration
     ADC2->CR |= ADC_CR_ADCAL;
-
-    // enable End Of Conversion interrupts
-    ADC2->IER |= ADC_IER_EOC;
 
     while (ADC2->CR & ADC_CR_ADCAL)
     {
