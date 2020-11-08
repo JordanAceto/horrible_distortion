@@ -487,7 +487,7 @@ F 1 "100k" V 3100 2200 50  0000 R CNN
 F 2 "Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical" H 3100 2100 50  0001 C CNN
 F 3 "~" H 3100 2100 50  0001 C CNN
 	1    3100 2100
-	1    0    0    1   
+	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	3350 2100 3250 2100
@@ -539,7 +539,7 @@ F 1 "100k" V 7800 2200 50  0000 R CNN
 F 2 "Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical" H 7800 2100 50  0001 C CNN
 F 3 "~" H 7800 2100 50  0001 C CNN
 	1    7800 2100
-	1    0    0    1   
+	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	7800 1850 7800 1950
