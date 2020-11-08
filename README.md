@@ -28,4 +28,9 @@ revision | schematic | pcb layout | firmware | built and tested | notes
 
 revision | schematic | pcb layout | firmware | built and tested | notes
 ---------|-----------|------------|----------|------------------|---------------
-1        | &#9745;   | &#9745;    | &#9744;  | &#9744;          | 
+1        | &#9745;   | &#9745;    | &#9745;  | &#9745;          | works well, needs small changes
+
+
+revision | schematic | pcb layout | firmware | built and tested | notes
+---------|-----------|------------|----------|------------------|---------------
+1.1      | &#9745;   | &#9745;    | &#9745;  | &#9744;          | 
