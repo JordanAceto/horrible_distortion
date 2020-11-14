@@ -2,10 +2,17 @@
 --|----------------------------------------------------------------------------|
 --| FILE DESCRIPTION:
 --|   RCC.c provides the implementation for initializing RCC.
---|  
+--|
+--|   The system clock is initialized to use the external 8MHz oscillator which
+--|   is multiplied by the PLL to 72MHz. The APB1 bus is divided to 36MHz.
+--|   Two FLASH wait states are enabled, because the clock speed is greater
+--|   than 48MHz.
+--|
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
---|   STM32F334xx Reference Manual, page 104
+--|   STM32F334xx Reference Manual, page 104 (RCC)
+--|   STM32F334xx Reference Manual, page 54 (FLASH)
+--|   STM32F334x6 datasheet, page 18 (clock tree)
 --|
 --|----------------------------------------------------------------------------|
 */

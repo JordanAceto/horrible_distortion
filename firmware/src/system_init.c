@@ -5,22 +5,13 @@
 --|
 --|   The SystemInit function is called from the assembly startup routine prior
 --|   to branching to the main application function.
---|   
---|   In the SystemInit function:
---|     The system clock is setup to use the external 8MHz oscillator which is
---|     multiplied by the PLL to 72MHz. The APB1 bus is divided to 36MHz.
---|     Two FLASH wait states are enabled, for speeds greater than 48MHz. 
 --|
---|     The SysTick timer is set up to count in milliseconds.
+--|   In the SystemInit function the various system clock and harware peripheral
+--|   init functions are called to initialize the system.
 --|
---|     The various harware peripheral init functions are called.
---| 
 --|----------------------------------------------------------------------------|
 --| REFERENCES:
---|   STM32F334xx Reference Manual, page 104 (RCC)
---|   STM32F334xx Reference Manual, page 54 (FLASH)
---|   STM32 Cortex-M4 Programming Manual, page 247 (SysTick)
---|   STM32F334x6 datasheet, page 18 (clock tree)
+--|   None
 --|
 --|----------------------------------------------------------------------------|
 */
