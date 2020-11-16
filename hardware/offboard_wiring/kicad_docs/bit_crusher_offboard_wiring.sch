@@ -1,0 +1,268 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title "Bit Crusher Pedal Offboard Wiring"
+Date "2020-11-15"
+Rev "1"
+Comp ""
+Comment1 "creativecommons.org/licenses/by/4.0/"
+Comment2 "License: CC by 4.0"
+Comment3 "Author: Jordan Aceto"
+Comment4 ""
+$EndDescr
+$Comp
+L bc_parts:SWITCH-3PDT-PTH-STOMP S1
+U 1 1 5FB1435B
+P 3350 5250
+F 0 "S1" H 3300 5600 45  0000 C CNN
+F 1 "bypass_switch" H 3300 5500 45  0000 C CNN
+F 2 "STOMP_SWITCH_3PDT" H 3350 5500 20  0001 C CNN
+F 3 "" H 3350 5250 50  0001 C CNN
+F 4 "SWCH-13197" H 3300 5447 60  0001 C CNN "Field4"
+	1    3350 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L bc_parts:SWITCH-3PDT-PTH-STOMP S1
+U 2 1 5FB15BA4
+P 7550 5250
+F 0 "S1" H 7500 5600 45  0000 C CNN
+F 1 "bypass_switch" H 7500 5500 45  0000 C CNN
+F 2 "STOMP_SWITCH_3PDT" H 7550 5500 20  0001 C CNN
+F 3 "" H 7550 5250 50  0001 C CNN
+F 4 "SWCH-13197" H 7500 5447 60  0001 C CNN "Field4"
+	2    7550 5250
+	-1   0    0    -1  
+$EndComp
+$Comp
+L bc_parts:SWITCH-3PDT-PTH-STOMP S1
+U 3 1 5FB16A0A
+P 6350 4350
+F 0 "S1" H 6300 4700 45  0000 C CNN
+F 1 "bypass_switch" H 6300 4600 45  0000 C CNN
+F 2 "STOMP_SWITCH_3PDT" H 6350 4600 20  0001 C CNN
+F 3 "" H 6350 4350 50  0001 C CNN
+F 4 "SWCH-13197" H 6300 4547 60  0001 C CNN "Field4"
+	3    6350 4350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3150 5250 2550 5250
+Wire Wire Line
+	3450 5350 7450 5350
+Wire Wire Line
+	8450 5250 7750 5250
+$Comp
+L bc_parts:main_pcb P1
+U 1 1 5FB2AA59
+P 5600 2900
+F 0 "P1" H 4850 3800 50  0000 R CNN
+F 1 "main_pcb" H 5000 3700 50  0000 R CNN
+F 2 "" H 5600 2900 50  0001 C CNN
+F 3 "" H 5600 2900 50  0001 C CNN
+	1    5600 2900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3450 5150 4700 5150
+Wire Wire Line
+	7450 5150 5200 5150
+Wire Wire Line
+	2550 5550 2650 5550
+$Comp
+L bc_parts:audio_jack_trs J3
+U 1 1 5FB53A83
+P 9350 1800
+F 0 "J3" H 9400 2150 50  0000 R CNN
+F 1 "bit_CV_jack" H 9550 2050 50  0000 R CNN
+F 2 "" H 9350 1750 50  0000 C CNN
+F 3 "" H 9350 1750 50  0000 C CNN
+	1    9350 1800
+	-1   0    0    -1  
+$EndComp
+$Comp
+L bc_parts:audio_jack_trs J4
+U 1 1 5FB54449
+P 9350 2750
+F 0 "J4" H 9400 3100 50  0000 R CNN
+F 1 "sr_CV_jack" H 9550 3000 50  0000 R CNN
+F 2 "" H 9350 2700 50  0000 C CNN
+F 3 "" H 9350 2700 50  0000 C CNN
+	1    9350 2750
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	8900 3000 6950 3000
+Wire Wire Line
+	6950 2900 8650 2900
+Wire Wire Line
+	8650 2900 8650 2850
+Wire Wire Line
+	8650 2850 8900 2850
+Wire Wire Line
+	8900 2600 8500 2600
+Wire Wire Line
+	8500 2600 8500 2800
+Wire Wire Line
+	8500 2800 6950 2800
+Wire Wire Line
+	8900 2050 8200 2050
+Wire Wire Line
+	8200 2050 8200 2550
+Wire Wire Line
+	8200 2550 6950 2550
+Wire Wire Line
+	6950 2450 8050 2450
+Wire Wire Line
+	8050 2450 8050 1900
+Wire Wire Line
+	8050 1900 8900 1900
+Wire Wire Line
+	6950 2350 7850 2350
+Wire Wire Line
+	7850 2350 7850 1650
+Wire Wire Line
+	7850 1650 8900 1650
+$Comp
+L Connector:Conn_Coaxial_Power J5
+U 1 1 5FB5DF1D
+P 5600 1400
+F 0 "J5" V 5383 1350 50  0000 C CNN
+F 1 "9VDC_input_jack" V 5474 1350 50  0000 C CNN
+F 2 "" H 5600 1350 50  0001 C CNN
+F 3 "~" H 5600 1350 50  0001 C CNN
+	1    5600 1400
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:LED D1
+U 1 1 5FB5F872
+P 6950 4250
+F 0 "D1" H 6943 3995 50  0000 C CNN
+F 1 "fx_on_LED" H 6943 4086 50  0000 C CNN
+F 2 "" H 6950 4250 50  0001 C CNN
+F 3 "~" H 6950 4250 50  0001 C CNN
+	1    6950 4250
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	6800 4250 6450 4250
+Wire Wire Line
+	6150 4350 5750 4350
+Wire Wire Line
+	5750 4350 5750 3750
+Wire Wire Line
+	5650 3750 5650 4550
+Wire Wire Line
+	5650 4550 7350 4550
+Wire Wire Line
+	7350 4550 7350 4250
+Wire Wire Line
+	7350 4250 7100 4250
+Wire Wire Line
+	5700 2050 5700 1800
+Wire Wire Line
+	5700 1800 5950 1800
+Wire Wire Line
+	5950 1800 5950 1400
+Wire Wire Line
+	5950 1400 5800 1400
+Wire Wire Line
+	5600 2050 5600 1800
+Wire Wire Line
+	5600 1800 5350 1800
+Wire Wire Line
+	5350 1800 5350 1400
+Wire Wire Line
+	5350 1400 5500 1400
+$Comp
+L bc_parts:audio_jack_switch J1
+U 1 1 5FB7742E
+P 2100 5400
+F 0 "J1" H 2108 5775 50  0000 C CNN
+F 1 "audio_input_jack" H 2108 5684 50  0000 C CNN
+F 2 "" H 2100 5450 50  0000 C CNN
+F 3 "" H 2100 5450 50  0000 C CNN
+	1    2100 5400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2550 5400 2650 5400
+Wire Wire Line
+	2650 5400 2650 5550
+$Comp
+L bc_parts:audio_jack_switch J2
+U 1 1 5FB795AA
+P 8900 5400
+F 0 "J2" H 8950 5750 50  0000 R CNN
+F 1 "audio_output_jack" H 9200 5650 50  0000 R CNN
+F 2 "" H 8900 5450 50  0000 C CNN
+F 3 "" H 8900 5450 50  0000 C CNN
+	1    8900 5400
+	-1   0    0    -1  
+$EndComp
+NoConn ~ 8450 5400
+Wire Wire Line
+	4700 5150 4700 3750
+Wire Wire Line
+	5200 5150 5200 3750
+NoConn ~ 6450 4450
+$Comp
+L power:GND #PWR?
+U 1 1 5FB1FEF9
+P 2650 5650
+F 0 "#PWR?" H 2650 5400 50  0001 C CNN
+F 1 "GND" H 2655 5477 50  0000 C CNN
+F 2 "" H 2650 5650 50  0001 C CNN
+F 3 "" H 2650 5650 50  0001 C CNN
+	1    2650 5650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2650 5650 2650 5550
+Connection ~ 2650 5550
+$Comp
+L power:GND #PWR?
+U 1 1 5FB22C81
+P 8300 5650
+F 0 "#PWR?" H 8300 5400 50  0001 C CNN
+F 1 "GND" H 8305 5477 50  0000 C CNN
+F 2 "" H 8300 5650 50  0001 C CNN
+F 3 "" H 8300 5650 50  0001 C CNN
+	1    8300 5650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8300 5650 8300 5550
+Wire Wire Line
+	8300 5550 8450 5550
+$Comp
+L power:GND #PWR?
+U 1 1 5FB2628E
+P 4600 3850
+F 0 "#PWR?" H 4600 3600 50  0001 C CNN
+F 1 "GND" H 4605 3677 50  0000 C CNN
+F 2 "" H 4600 3850 50  0001 C CNN
+F 3 "" H 4600 3850 50  0001 C CNN
+	1    4600 3850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4600 3850 4600 3750
+$Comp
+L power:GND #PWR?
+U 1 1 5FB270F5
+P 5100 3850
+F 0 "#PWR?" H 5100 3600 50  0001 C CNN
+F 1 "GND" H 5105 3677 50  0000 C CNN
+F 2 "" H 5100 3850 50  0001 C CNN
+F 3 "" H 5100 3850 50  0001 C CNN
+	1    5100 3850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5100 3850 5100 3750
+$EndSCHEMATC

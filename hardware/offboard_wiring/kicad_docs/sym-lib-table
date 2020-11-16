@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name bc_parts)(type Legacy)(uri ${KIPRJMOD}/bc_parts/bc_parts.lib)(options "")(descr ""))
+)
