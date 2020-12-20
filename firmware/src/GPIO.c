@@ -43,7 +43,7 @@ void GPIO_Init(void)
     // set PA1 to analog mode, PA1 is connected to the sample_rate_CV_in node
     GPIOA->MODER |= GPIO_MODER_MODER1_0 | GPIO_MODER_MODER1_1;
 
-    // set PA4 to analog mode, PA4 is connected to the DAC audio input signal
+    // set PA4 to analog mode, PA4 is connected to the DAC audio output signal
     GPIOA->MODER |= GPIO_MODER_MODER4_0 | GPIO_MODER_MODER4_1;
 
     // set PA5 to analog mode, PA5 is connected to the audio input signal
