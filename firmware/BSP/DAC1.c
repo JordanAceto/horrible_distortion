@@ -41,3 +41,9 @@ void DAC1_Init(void)
     // enable DAC1
     DAC1->CR |= DAC_CR_EN1;
 }
+
+void DAC1_write_ui12(uint16_t val)
+{
+    DAC1->DHR12R1 = val;
+    DAC1->SWTRIGR |= DAC_SWTRIGR_SWTRIG1;
+}

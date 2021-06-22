@@ -16,6 +16,14 @@
 
 /*
 --|----------------------------------------------------------------------------|
+--| INCLUDE FILES
+--|----------------------------------------------------------------------------|
+*/
+
+#include <stdint.h>
+
+/*
+--|----------------------------------------------------------------------------|
 --| PUBLIC FUNCTION PROTOTYPES
 --|----------------------------------------------------------------------------|
 */
@@ -25,7 +33,7 @@ Function Name:
     LED_indicator_show_signal_strength
 
 Function Description:
-    Show the signal strength of the audio input signal with the RED/GREEN LED.
+    Show the signal strength of the input signal with the RED/GREEN LED.
 
     Weak signals will cause both LEDs to turn off.
 
@@ -36,7 +44,7 @@ Function Description:
     Signals that cause clipping will cause the RED LED to turn on.
 
 Parameters:
-    None
+    val (uint16_t): the signal value to monitor.
 
 Returns:
     None
@@ -44,6 +52,6 @@ Returns:
 Assumptions/Limitations:
     Assumed that this will be called only after all initialization is complete.
 ------------------------------------------------------------------------------*/
-void LED_indicator_show_signal_strength(void);
+void LED_indicator_show_signal_strength(uint16_t val);
 
 #endif

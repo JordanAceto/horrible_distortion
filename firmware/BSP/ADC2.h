@@ -22,6 +22,14 @@
 
 /*
 --|----------------------------------------------------------------------------|
+--| INCLUDE FILES
+--|----------------------------------------------------------------------------|
+*/
+
+#include <stdint.h>
+
+/*
+--|----------------------------------------------------------------------------|
 --| PUBLIC FUNCTION PROTOTYPES
 --|----------------------------------------------------------------------------|
 */
@@ -34,8 +42,7 @@ Function Description:
     Perform initialization of ADC2.
 
     ADC2 is configured to automatically sample the audio input signal at a
-    period defined by TIM6. The sampled audio will be continuously available
-    in the ADC2 Data Register.
+    period defined by TIM6.
 
 Parameters:
     None
@@ -47,5 +54,23 @@ Assumptions/Limitations:
     Assumed that this will be called before using ADC2.
 ------------------------------------------------------------------------------*/
 void ADC2_Init(void);
+
+/*------------------------------------------------------------------------------
+Function Name:
+    ADC2_get_ui12
+
+Function Description:
+    Get the unsigned 12 bit value from ADC2.
+
+Parameters:
+    None
+
+Returns:
+    uint16_t: the last converted value from ADC2.
+
+Assumptions/Limitations:
+    Assumed that ADC2 has been initialized.
+------------------------------------------------------------------------------*/
+uint16_t ADC2_get_ui12(void);
 
 #endif

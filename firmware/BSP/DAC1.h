@@ -41,4 +41,22 @@ Assumptions/Limitations:
 ------------------------------------------------------------------------------*/
 void DAC1_Init(void);
 
+/*------------------------------------------------------------------------------
+Function Name:
+    DAC1_write_ui12
+
+Function Description:
+    Write the given right-aligned 12 bit signal to the DAC.
+
+Parameters:
+    val (uint16_t): the value to write, only the lower 12 bits are written.
+
+Returns:
+    None
+
+Assumptions/Limitations:
+    Assumed that DAC1 has been initialized.
+------------------------------------------------------------------------------*/
+void DAC1_write_ui12(uint16_t val);
+
 #endif

@@ -68,7 +68,33 @@ uint32_t SystemCoreClock = 72E6;
 
 /*
 --|----------------------------------------------------------------------------|
---| PUBLIC FUNCTION DEFINITIONS
+--| PRIVATE FUNCTION PROTOTYPES
+--|----------------------------------------------------------------------------|
+*/
+
+/*------------------------------------------------------------------------------
+Function Name:
+    SystemInit
+
+Function Description:
+    Perform system initialization by starting the system clock and initializing
+    the various stm32 peripherals.
+
+Parameters:
+    None
+
+Returns:
+    None
+
+Assumptions/Limitations:
+    Assumed that this will be called by the assembly startup routine before
+    branching to main. Do not manually call this function.
+------------------------------------------------------------------------------*/
+void SystemInit(void);
+
+/*
+--|----------------------------------------------------------------------------|
+--| PRIVATE FUNCTION DEFINITIONS
 --|----------------------------------------------------------------------------|
 */
 

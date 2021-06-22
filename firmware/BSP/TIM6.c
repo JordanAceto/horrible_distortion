@@ -45,6 +45,18 @@ void TIM6_Init(void)
     TIM6->PSC = 3600u - 1u;
     TIM6->ARR = 1u;
 
+    // enable TIM6 Update Interrupts
+    TIM6->DIER |= TIM_DIER_UIE;
+
     // enable the timer
     TIM6->CR1 |= TIM_CR1_CEN;
+}
+
+void TIM6_set_prescaler(uint16_t val)
+{
+    // if the prescaler value gets too low, the system can lock up
+    // TODO: investigate this/come up with a better mapping for the sample rate
+    const uint16_t low_bound = 500u;
+    val = val < low_bound ? low_bound : val;
+    TIM6->PSC = val;
 }
